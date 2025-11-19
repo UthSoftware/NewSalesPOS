@@ -23,12 +23,12 @@ class _SubGroupFilterBarState extends State<SubGroupFilterBar> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final double containerHeight = getProportionateScreenWidth(24.4);
+    final double containerHeight = getProportionateScreenWidth(16.4);
     final double imageHeight = containerHeight - getProportionateScreenWidth(2);
     // final double containerWidth = getProportionateScreenWidth(48);
-    final double itemContainerWidth = getProportionateScreenWidth(55);
+    // final double itemContainerWidth = getProportionateScreenWidth(55);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: getProportionateScreenWidth(2.5)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -94,7 +94,8 @@ class _SubGroupFilterBarState extends State<SubGroupFilterBar> {
                   itemBuilder: (context, index) {
                     return Container(
                       height: containerHeight,
-                      width: itemContainerWidth,
+                      // width: itemContainerWidth,
+                      padding: EdgeInsets.only(right: getProportionateScreenWidth(5)),
                       margin: EdgeInsets.only(right: getProportionateScreenWidth(4)),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -114,7 +115,7 @@ class _SubGroupFilterBarState extends State<SubGroupFilterBar> {
                               ),
                             ),
                           ),
-                          SizedBox(height: getProportionateScreenWidth(2)),
+                          SizedBox(width: getProportionateScreenWidth(1)),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -123,7 +124,7 @@ class _SubGroupFilterBarState extends State<SubGroupFilterBar> {
                                 'Special Cakes',
                                 style: GoogleFonts.openSans(
                                   color: MyColors.unSelectedForegroundColor,
-                                  fontSize: getProportionateScreenWidth(3.9),
+                                  fontSize: getProportionateScreenWidth(3.7),
                                 ),
                               ),
                               Text(
@@ -131,7 +132,7 @@ class _SubGroupFilterBarState extends State<SubGroupFilterBar> {
                                 'كعكات خاصة',
                                 style: GoogleFonts.openSans(
                                   color: MyColors.unSelectedForegroundColor,
-                                  fontSize: getProportionateScreenWidth(3.7),
+                                  fontSize: getProportionateScreenWidth(3.5),
                                 ),
                               ),
                             ],

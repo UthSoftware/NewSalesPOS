@@ -70,9 +70,11 @@ class _OrderSummaryFooterState extends State<OrderSummaryFooter> {
                                         value: DiscountType.percentage,
                                         groupValue: discountType,
                                         onChanged: (value) {
-                                          setState(() {
-                                            discountType = value!;
-                                          });
+                                          if (mounted) {
+                                            setState(() {
+                                              discountType = value!;
+                                            });
+                                          }
                                         },
                                         activeColor: Colors.redAccent,
                                       ),
@@ -81,9 +83,11 @@ class _OrderSummaryFooterState extends State<OrderSummaryFooter> {
                                         value: DiscountType.amount,
                                         groupValue: discountType,
                                         onChanged: (value) {
-                                          setState(() {
-                                            discountType = value!;
-                                          });
+                                          if (mounted) {
+                                            setState(() {
+                                              discountType = value!;
+                                            });
+                                          }
                                         },
                                         activeColor: Colors.redAccent,
                                       ),
@@ -282,9 +286,11 @@ class _OrderSummaryFooterState extends State<OrderSummaryFooter> {
             padding: EdgeInsets.all(4), // optional, for spacing
             child: GestureDetector(
               onTap: () {
-                setState(() {
-                  isExpanded = !isExpanded;
-                });
+                if (mounted) {
+                  setState(() {
+                    isExpanded = !isExpanded;
+                  });
+                }
               },
               child: AnimatedRotation(
                 turns: isExpanded ? 0.5 : 0, // 0.5 turns = 180 degrees

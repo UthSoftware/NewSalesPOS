@@ -26,19 +26,3 @@ class _DineInTablesScreenState extends State<DineInTablesScreen> {
     );
   }
 }
-
-class TableStatusModel {
-  final String statusName;
-  final Color? unselectedColor;
-  final Color? unselectedBackgroundColor;
-  final Color? selectedColor;
-  final Color? selectedBackgroundColor;
-
-  const TableStatusModel({
-    required this.statusName,
-    this.unselectedColor,
-    this.unselectedBackgroundColor,
-    this.selectedColor,
-    this.selectedBackgroundColor,
-  });
-}
