@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soft_sales/screens/sales/dine-in_panel/dine_in_tables.dart';
+import 'package:soft_sales/screens/dashboard/dashboard_screen_sales_ui_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: DineInTablesScreen(), //DineInTablesScreen(), // SalesScreen(),
+      home:
+          DashboardScreenSalesUiHandler(), //DineInTablesScreen(), // SalesScreen(), // SalesLoginScreen(),//DashboardScreenSalesUiHandler
     );
   }
 }

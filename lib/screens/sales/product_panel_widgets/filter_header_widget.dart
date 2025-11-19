@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/constants/my_colour.dart';
 import 'package:soft_sales/models/sales/order_type.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
 class FilterHeaderWidget extends StatefulWidget {
-  const FilterHeaderWidget({super.key});
+  final VoidCallback? onMenuPressed;
+
+  const FilterHeaderWidget({super.key, this.onMenuPressed});
 
   @override
   State<FilterHeaderWidget> createState() => _FilterHeaderWidgetState();
@@ -25,32 +28,53 @@ class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    final isTablet =
+        MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width <= 1000;
+
     return SizedBox(
       height: getProportionateScreenWidth(20),
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: getProportionateScreenWidth(17),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: filterHeaderList.length,
-              itemBuilder: (context, index) {
-                final isSelected = selectedFilter == index;
+          // ✅ Logo for mobile/tablet
+          if (isMobile || isTablet)
+            InkWell(
+              onTap: widget.onMenuPressed,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: getProportionateScreenWidth(2),
+                  right: getProportionateScreenWidth(5),
+                  top: getProportionateScreenHeight(15), // Add spacing after logo
+                ),
+                child: SvgPicture.asset('assets/sales_images/uthpos.svg', width: 24, height: 24),
+              ),
+            ),
 
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = index;
-                    });
-                  },
-                  child: _FilterItem(
-                    nameEn: filterHeaderList[index].nameEn,
-                    nameReg: filterHeaderList[index].nameReg,
-                    isSelected: isSelected,
-                  ),
-                );
-              },
+          // ✅ Filter list takes remaining space
+          Expanded(
+            child: SizedBox(
+              height: getProportionateScreenWidth(17),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: filterHeaderList.length,
+                itemBuilder: (context, index) {
+                  final isSelected = selectedFilter == index;
+
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = index;
+                      });
+                    },
+                    child: _FilterItem(
+                      nameEn: filterHeaderList[index].nameEn,
+                      nameReg: filterHeaderList[index].nameReg,
+                      isSelected: isSelected,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
