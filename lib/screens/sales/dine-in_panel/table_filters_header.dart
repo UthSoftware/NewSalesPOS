@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/constants/my_colour.dart';
-import 'package:soft_sales/screens/sales/dine-in_panel/dine_in_tables.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
 class TableFiltersHeader extends StatefulWidget {
@@ -189,4 +188,22 @@ class _TableFiltersHeaderState extends State<TableFiltersHeader> {
       ),
     );
   }
+}
+
+//////////////////////// Models ////////////////////////
+
+class TableStatusModel {
+  final String statusName;
+  final Color? unselectedColor;
+  final Color? unselectedBackgroundColor;
+  final Color? selectedColor;
+  final Color? selectedBackgroundColor;
+
+  const TableStatusModel({
+    required this.statusName,
+    this.unselectedColor,
+    this.unselectedBackgroundColor,
+    this.selectedColor,
+    this.selectedBackgroundColor,
+  });
 }

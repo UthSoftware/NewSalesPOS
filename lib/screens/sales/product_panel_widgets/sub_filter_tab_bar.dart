@@ -47,7 +47,7 @@ class _SubFilterTabBarState extends State<SubFilterTabBar> {
     return Column(
       children: [
         SizedBox(
-          height: getProportionateScreenWidth(27),
+          height: getProportionateScreenWidth(26),
           child: Listener(
             onPointerSignal: (pointerSignal) {
               if (pointerSignal is PointerScrollEvent) {
@@ -68,9 +68,11 @@ class _SubFilterTabBarState extends State<SubFilterTabBar> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    setState(() {
-                      selectedFilter = index;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        selectedFilter = index;
+                      });
+                    }
                   },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
@@ -150,9 +152,9 @@ class _SubFilterTabBarState extends State<SubFilterTabBar> {
             ),
           ),
         ),
-        SizedBox(height: getProportionateScreenHeight(5)),
+        // SizedBox(height: getProportionateScreenHeight(2)),
         Divider(color: MyColors.borderColor, height: 2),
-        SizedBox(height: getProportionateScreenHeight(18)),
+        SizedBox(height: getProportionateScreenHeight(14)),
       ],
     );
   }

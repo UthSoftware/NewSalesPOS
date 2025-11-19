@@ -40,9 +40,12 @@ class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {
 
                 return GestureDetector(
                   onTap: () {
-                    setState(() {
-                      selectedFilter = index;
-                    });
+                    // Simple mounted check - no debug prints needed
+                    if (mounted) {
+                      setState(() {
+                        selectedFilter = index;
+                      });
+                    }
                   },
                   child: _FilterItem(
                     nameEn: filterHeaderList[index].nameEn,
@@ -78,13 +81,14 @@ class _FilterItemState extends State<_FilterItem> {
   Widget build(BuildContext context) {
     return MeasureSize(
       onChange: (size) {
-        if (_width != size.width) {
+        // Check mounted before setState - no debug prints needed
+        debugPrint('Calling...');
+        if (_width != size.width && mounted) {
           setState(() {
             _width = size.width;
           });
         }
       },
-      // 👇 Measure the ENTIRE item including padding
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,13 +122,13 @@ class _FilterItemState extends State<_FilterItem> {
               ],
             ),
           ),
-          // 👇 Bottom line with centered alignment
+          // Bottom line with centered alignment
           SizedBox(
-            height: 8, // Fixed height container (4 + 4 margin)
+            height: 8,
             child: Align(
-              alignment: Alignment.center, // Center the line vertically
+              alignment: Alignment.center,
               child: Container(
-                width: _width, // Uses full measured width with padding
+                width: _width,
                 height: widget.isSelected ? 4 : 0.2,
                 decoration: BoxDecoration(
                   color: widget.isSelected
@@ -141,7 +145,7 @@ class _FilterItemState extends State<_FilterItem> {
   }
 }
 
-// Helper widget to measure size
+// Fixed MeasureSize widget with proper disposal handling
 class MeasureSize extends StatefulWidget {
   final Widget child;
   final ValueChanged<Size> onChange;
@@ -168,6 +172,9 @@ class _MeasureSizeState extends State<MeasureSize> {
   }
 
   void _getSize() {
+    // Check if widget is still mounted before calling onChange
+    if (!mounted) return;
+
     final context = _key.currentContext;
     if (context != null) {
       final box = context.findRenderObject() as RenderBox?;

@@ -23,8 +23,8 @@ class _GroupFilterBarState extends State<GroupFilterBar> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final double containerHeight = getProportionateScreenWidth(30.8);
-    final double containerWidth = getProportionateScreenWidth(36);
+    final double containerHeight = getProportionateScreenWidth(27.8);
+    final double containerWidth = getProportionateScreenWidth(35);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -117,19 +117,19 @@ class _GroupFilterBarState extends State<GroupFilterBar> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(height: getProportionateScreenWidth(2)),
+                        SizedBox(height: getProportionateScreenWidth(0.9)),
                         Text(
                           'Desserts',
                           style: GoogleFonts.openSans(
                             color: MyColors.unSelectedForegroundColor,
-                            fontSize: getProportionateScreenWidth(3.9),
+                            fontSize: getProportionateScreenWidth(3.7),
                           ),
                         ),
                         Text(
                           '(حلويات)',
                           style: GoogleFonts.openSans(
                             color: MyColors.unSelectedForegroundColor,
-                            fontSize: getProportionateScreenWidth(3.7),
+                            fontSize: getProportionateScreenWidth(3.5),
                           ),
                         ),
                       ],
