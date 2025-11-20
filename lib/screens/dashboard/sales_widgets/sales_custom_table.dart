@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +47,7 @@ class _CustomTableWidgetState extends State<CustomTableWidget> {
     final headerFontSize = isMobile ? 11.0 : 13.0;
     final rowFontSize = isMobile ? 10.0 : 12.0;
     final iconSize = isMobile ? 14.0 : 16.0;
-    print("table data : ${widget.data}");
+    debugPrint("table data : ${widget.data}");
 
     return Container(
       decoration: BoxDecoration(

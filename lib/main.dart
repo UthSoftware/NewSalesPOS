@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:soft_sales/screens/dashboard/dashboard_screen_sales_ui_handler.dart';
-import 'package:soft_sales/screens/sales/sales_screen.dart';
 
 void main() {
   runApp(const MyApp());

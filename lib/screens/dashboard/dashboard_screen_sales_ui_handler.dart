@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -68,7 +70,7 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                 isDrawerExpanded: true, // Always expanded in drawer
                 isMobileDrawer: true, // ✅ Add flag to identify mobile drawer
                 onItemSelected: (item) {
-                  print('Selected item: $item'); // ✅ Debug print
+                  debugPrint('Selected item: $item'); // ✅ Debug print
                   setState(() {
                     selectedItem = item;
                     isReportsExpanded = false;
@@ -87,7 +89,7 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                       // selectedIndex stays as is
                     }
                   });
-                  print(
+                  debugPrint(
                     'Drawer closed, showing: $item, bottomNav index: $selectedIndex',
                   ); // ✅ Debug print
                 },

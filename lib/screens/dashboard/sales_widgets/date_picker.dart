@@ -2,6 +2,8 @@
 // FILE 1: CustomDateRangePicker (date_picker.dart)
 // ========================================
 
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class CustomDateRangePicker extends StatefulWidget {
@@ -122,24 +124,23 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
                 // Day headers
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children:
-                      ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-                          .map(
-                            (day) => SizedBox(
-                              width: 36,
-                              child: Center(
-                                child: Text(
-                                  day,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
+                  children: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+                      .map(
+                        (day) => SizedBox(
+                          width: 36,
+                          child: Center(
+                            child: Text(
+                              day,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[600],
                               ),
                             ),
-                          )
-                          .toList(),
+                          ),
+                        ),
+                      )
+                      .toList(),
                 ),
                 const SizedBox(height: 8),
 
@@ -161,13 +162,12 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton(
-                      onPressed:
-                          startDate != null && endDate != null
-                              ? () {
-                                widget.onDateRangeSelected(startDate!, endDate!);
-                                Navigator.of(context).pop();
-                              }
-                              : null,
+                      onPressed: startDate != null && endDate != null
+                          ? () {
+                              widget.onDateRangeSelected(startDate!, endDate!);
+                              Navigator.of(context).pop();
+                            }
+                          : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
                         foregroundColor: Colors.white,
@@ -214,12 +214,11 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
             height: 36,
             margin: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color:
-                  isStart || isEnd
-                      ? Colors.teal
-                      : isInRange
-                      ? Colors.teal.withOpacity(0.3)
-                      : Colors.transparent,
+              color: isStart || isEnd
+                  ? Colors.teal
+                  : isInRange
+                  ? Colors.teal.withOpacity(0.3)
+                  : Colors.transparent,
               shape: BoxShape.circle,
             ),
             child: Center(
