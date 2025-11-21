@@ -47,7 +47,6 @@ class _CustomTableWidgetState extends State<CustomTableWidget> {
     final headerFontSize = isMobile ? 11.0 : 13.0;
     final rowFontSize = isMobile ? 10.0 : 12.0;
     final iconSize = isMobile ? 14.0 : 16.0;
-    debugPrint("table data : ${widget.data}");
 
     return Container(
       decoration: BoxDecoration(
