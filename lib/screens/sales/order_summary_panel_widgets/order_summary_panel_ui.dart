@@ -19,7 +19,12 @@ class SalesOrderSummary extends StatelessWidget with MyColors {
               color: Colors.white,
               border: Border(left: BorderSide(color: MyColors.borderColor)),
             ),
-            child: Column(children: [SalesOrderSummaryHeader(), OrderSummaryBody()]),
+            child: Column(
+              children: [
+                SalesOrderSummaryHeader(),
+                Expanded(child: OrderSummaryBody()),
+              ],
+            ),
           ),
         ),
         OrderSummaryFooter(),

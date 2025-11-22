@@ -55,7 +55,6 @@ class FoodMenuItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: item.isAdd ? Color(0XFF12A877) : Colors.transparent, width: 1),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),

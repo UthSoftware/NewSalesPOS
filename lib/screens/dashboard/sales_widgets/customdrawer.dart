@@ -26,10 +26,19 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void handleItemTap(String title) async {
+    void handleItemTap(String title) {
       if (isMobileDrawer) {
+        // Call the callback first
         onItemSelected(title);
-        Navigator.of(context).pop();
+
+        // Then close the drawer
+        try {
+          if (Navigator.of(context).canPop()) {
+            Navigator.of(context).pop();
+          }
+        } catch (e) {
+          print('Error closing drawer: $e');
+        }
       } else {
         if (!isDrawerExpanded) {
           onDrawerToggle();
@@ -38,9 +47,22 @@ class CustomDrawer extends StatelessWidget {
           onDrawerToggle();
         }
       }
-      // Optionally add small delay after visual feedback, non-blocking
-      await Future.delayed(Duration(milliseconds: 50));
     }
+    // void handleItemTap(String title) async {
+    //   if (isMobileDrawer) {
+    //     onItemSelected(title);
+    //     Navigator.of(context).pop();
+    //   } else {
+    //     if (!isDrawerExpanded) {
+    //       onDrawerToggle();
+    //     } else {
+    //       onItemSelected(title);
+    //       onDrawerToggle();
+    //     }
+    //   }
+    //   // Optionally add small delay after visual feedback, non-blocking
+    //   await Future.delayed(Duration(milliseconds: 50));
+    // }
 
     SizeConfig().init(context);
     final screenWidth = MediaQuery.of(context).size.width;

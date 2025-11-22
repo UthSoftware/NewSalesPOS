@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/controller/dashboard/dashboard_controller.dart';
-import 'package:soft_sales/screens/dashboard/inventory_stock.dart';
+import 'package:soft_sales/screens/dashboard/dashborad_contant/inventory_stock.dart';
 import 'package:soft_sales/screens/dashboard/sales_widgets/date_picker.dart';
 import 'package:soft_sales/screens/dashboard/sales_widgets/sales_custom_dropdown.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';

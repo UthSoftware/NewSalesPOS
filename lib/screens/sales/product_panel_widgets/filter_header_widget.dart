@@ -32,52 +32,54 @@ class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {
     final isTablet =
         MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width <= 1000;
 
-    return SizedBox(
-      height: getProportionateScreenWidth(20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ✅ Logo for mobile/tablet
-          if (isMobile || isTablet)
-            InkWell(
-              onTap: widget.onMenuPressed,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: getProportionateScreenWidth(2),
-                  right: getProportionateScreenWidth(5),
-                  top: getProportionateScreenHeight(15), // Add spacing after logo
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: getProportionateScreenWidth(22), // ✅ Increased from 20 to 22
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ✅ Logo for mobile/tablet
+            if (isMobile || isTablet)
+              InkWell(
+                onTap: widget.onMenuPressed,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: getProportionateScreenWidth(2),
+                    right: getProportionateScreenWidth(5),
+                    top: getProportionateScreenHeight(15),
+                  ),
+                  child: SvgPicture.asset('assets/sales_images/uthpos.svg', width: 24, height: 24),
                 ),
-                child: SvgPicture.asset('assets/sales_images/uthpos.svg', width: 24, height: 24),
+              ),
+
+            // ✅ Filter list takes remaining space
+            Expanded(
+              child: SizedBox(
+                height: getProportionateScreenWidth(19), // ✅ Increased from 17 to 19
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: filterHeaderList.length,
+                  itemBuilder: (context, index) {
+                    final isSelected = selectedFilter == index;
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedFilter = index;
+                        });
+                      },
+                      child: _FilterItem(
+                        nameEn: filterHeaderList[index].nameEn,
+                        nameReg: filterHeaderList[index].nameReg,
+                        isSelected: isSelected,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-
-          // ✅ Filter list takes remaining space
-          Expanded(
-            child: SizedBox(
-              height: getProportionateScreenWidth(17),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: filterHeaderList.length,
-                itemBuilder: (context, index) {
-                  final isSelected = selectedFilter == index;
-
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = index;
-                      });
-                    },
-                    child: _FilterItem(
-                      nameEn: filterHeaderList[index].nameEn,
-                      nameReg: filterHeaderList[index].nameReg,
-                      isSelected: isSelected,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -102,23 +104,26 @@ class _FilterItemState extends State<_FilterItem> {
   Widget build(BuildContext context) {
     return MeasureSize(
       onChange: (size) {
-        // Check mounted before setState - no debug prints needed
-        debugPrint('Calling...');
         if (_width != size.width && mounted) {
+          // ✅ Added mounted check
           setState(() {
             _width = size.width;
           });
         }
       },
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        // ✅ REMOVED mainAxisSize: MainAxisSize.min to fix overflow
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Text content with padding
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+            padding: const EdgeInsets.symmetric(
+              vertical: 4,
+              horizontal: 14,
+            ), // ✅ Reduced vertical from 6 to 4
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   widget.nameEn,
@@ -193,7 +198,7 @@ class _MeasureSizeState extends State<MeasureSize> {
   }
 
   void _getSize() {
-    // Check if widget is still mounted before calling onChange
+    // ✅ Check if widget is still mounted before calling onChange
     if (!mounted) return;
 
     final context = _key.currentContext;

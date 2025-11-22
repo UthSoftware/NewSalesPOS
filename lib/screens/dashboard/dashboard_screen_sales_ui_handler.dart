@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/controller/dashboard/dashboard_controller.dart';
-import 'package:soft_sales/screens/dashboard/desktop_sales_dashboard_content.dart';
+import 'package:soft_sales/screens/dashboard/customer_report.dart/customer_report.dart';
+import 'package:soft_sales/screens/dashboard/dashborad_contant/desktop_sales_dashboard_content.dart';
+import 'package:soft_sales/screens/dashboard/inventory_report.dart/inventory_report_creeen.dart';
+import 'package:soft_sales/screens/dashboard/order_list/order_list.dart';
+import 'package:soft_sales/screens/dashboard/reports/report.dart';
+import 'package:soft_sales/screens/dashboard/reports/sales_report.dart';
 import 'package:soft_sales/screens/dashboard/sales_widgets/customdrawer.dart';
-import 'package:soft_sales/screens/dashboard/sales_widgets/sales_header.dart';
+import 'package:soft_sales/screens/dashboard/setting/settings.dart';
 import 'package:soft_sales/screens/sales/sales_screen.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
@@ -18,16 +22,34 @@ class DashboardScreenSalesUiHandler extends StatefulWidget {
 
 class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHandler> {
   final StatsController controller = Get.put(StatsController());
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // ✅ Add this
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String selectedItem = 'Dashboard';
   bool isReportsExpanded = false;
   bool isDrawerExpanded = false;
   int selectedIndex = 0;
 
-  // ✅ Add method to open drawer
-  void _openDrawer() {
-    _scaffoldKey.currentState?.openDrawer();
+  void setScreen(String item) {
+    setState(() {
+      selectedItem = item;
+
+      // Update selectedIndex based on item
+      if (item == 'Dashboard') {
+        selectedIndex = 0;
+      } else if (item == 'Sales') {
+        selectedIndex = 1;
+      } else if (item == 'Order List') {
+        selectedIndex = 2;
+      } else if (item == 'Reports' ||
+          item == 'Sales Report' ||
+          item == 'Customer Report' ||
+          item == 'Inventory Report') {
+        // All report-related items should highlight the Reports tab
+        selectedIndex = 3;
+      } else if (item == 'Settings') {
+        selectedIndex = 4;
+      }
+    });
   }
 
   @override
@@ -49,47 +71,31 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
         : getProportionateScreenWidth(55);
 
     return Scaffold(
-      key: _scaffoldKey, // ✅ Add scaffold key
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
 
-      // ✅ Add drawer for mobile/tablet
       drawer: (isMobile || isTablet)
           ? Drawer(
-              width: isMobile
-                  ? mediaQuery.width * 0.40
-                  : mediaQuery.width * 0.25, // Set drawer width
-
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero, // 👈 removes all rounding
-              ),
+              width: isMobile ? mediaQuery.width * 0.40 : mediaQuery.width * 0.25,
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               child: CustomDrawer(
                 selectedItem: selectedItem,
                 isReportsExpanded: isReportsExpanded,
-                isDrawerExpanded: true, // Always expanded in drawer
-                isMobileDrawer: true, // ✅ Add flag to identify mobile drawer
+                isDrawerExpanded: true,
+                isMobileDrawer: true,
                 onItemSelected: (item) {
-                  print('Selected item: $item'); // ✅ Debug print
-                  setState(() {
-                    selectedItem = item;
-                    isReportsExpanded = false;
-                    Navigator.pop(context); // Close drawer after selection
-
-                    // ✅ Update bottom nav bar index based on item
-                    if (item == 'Dashboard') {
-                      selectedIndex = 0;
-                    } else if (item == 'Sales') {
-                      selectedIndex = 1;
-                    } else if (item == 'Order List') {
-                      selectedIndex = 2;
-                    } else {
-                      // For items not in bottom nav (Settings, Reports), keep current selection
-                      // This prevents the bottom nav from deselecting all items
-                      // selectedIndex stays as is
-                    }
+                  print('🎯 Drawer item selected: "$item"');
+                  // ✅ Close drawer first, then update state
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
+                  // ✅ Update state after a small delay
+                  Future.delayed(Duration(milliseconds: 100), () {
+                    setScreen(item);
+                    setState(() {
+                      isReportsExpanded = false;
+                    });
                   });
-                  print(
-                    'Drawer closed, showing: $item, bottomNav index: $selectedIndex',
-                  ); // ✅ Debug print
                 },
                 onReportsToggle: () {
                   setState(() {
@@ -97,7 +103,9 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                   });
                 },
                 onDrawerToggle: () {
-                  Navigator.pop(context); // Close drawer
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.pop(context);
+                  }
                 },
               ),
             )
@@ -117,15 +125,7 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                     color: Colors.white,
                     child: LayoutBuilder(
                       builder: (context, constraints) {
-                        return SingleChildScrollView(
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minHeight: constraints.maxHeight,
-                              minWidth: constraints.maxWidth,
-                            ),
-                            child: _buildContents(),
-                          ),
-                        );
+                        return _buildContents();
                       },
                     ),
                   ),
@@ -138,15 +138,16 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
             AnimatedContainer(
               duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOutCubic,
-              width: isDrawerExpanded ? expandedDrawerWidth : collapsedDrawerWidth,
+              width: isDrawerExpanded ? 200 : 70,
               child: CustomDrawer(
                 selectedItem: selectedItem,
                 isReportsExpanded: isReportsExpanded,
                 isDrawerExpanded: isDrawerExpanded,
                 isMobileDrawer: false,
                 onItemSelected: (item) {
+                  // ✅ REMOVED Navigator.pop for desktop - it's not a drawer that needs closing
+                  setScreen(item);
                   setState(() {
-                    selectedItem = item;
                     isReportsExpanded = false;
                   });
                 },
@@ -169,19 +170,17 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
               backgroundColor: const Color(0xffFFFFFF),
               selectedItemColor: const Color(0xffD2303F),
               unselectedItemColor: Colors.grey,
-              currentIndex: selectedIndex.clamp(0, 2), // ✅ Ensure index is always valid (0-2)
+              currentIndex: selectedIndex,
               type: BottomNavigationBarType.fixed,
               onTap: (index) {
                 setState(() {
                   selectedIndex = index;
 
-                  if (index == 0) {
-                    selectedItem = 'Dashboard';
-                  } else if (index == 1) {
-                    selectedItem = 'Sales';
-                  } else if (index == 2) {
-                    selectedItem = 'Order List';
-                  }
+                  if (index == 0) selectedItem = 'Dashboard';
+                  if (index == 1) selectedItem = 'Sales';
+                  if (index == 2) selectedItem = 'Order List';
+                  if (index == 3) selectedItem = 'Reports';
+                  if (index == 4) selectedItem = 'Settings';
                 });
               },
               items: [
@@ -221,6 +220,30 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                   ),
                   label: 'Order List',
                 ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/sales_images/reports.svg',
+                    width: 24,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                      selectedIndex == 3 ? const Color(0xffD2303F) : Colors.grey,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  label: 'Reports',
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/sales_images/settings.svg',
+                    width: 24,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                      selectedIndex == 4 ? const Color(0xffD2303F) : Colors.grey,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  label: 'Settings',
+                ),
               ],
             )
           : const SizedBox.shrink(),
@@ -228,76 +251,137 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
   }
 
   Widget _buildContents() {
-    SizeConfig().init(context);
-    final isMobile = MediaQuery.of(context).size.width < 600;
-    final isTablet =
-        MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width <= 1000;
+    print('🔍 DEBUG: Building content for: "$selectedItem"');
+    print('🔍 DEBUG: selectedIndex = $selectedIndex');
+
+    // void openDrawer() {
+    //   if (_scaffoldKey.currentState != null && !_scaffoldKey.currentState!.isDrawerOpen) {
+    //     _scaffoldKey.currentState!.openDrawer();
+    //   }
+    // }
+    void openDrawer() {
+      // ✅ Add safety checks
+      if (_scaffoldKey.currentState != null) {
+        if (_scaffoldKey.currentState!.hasDrawer) {
+          if (!_scaffoldKey.currentState!.isDrawerOpen) {
+            _scaffoldKey.currentState!.openDrawer();
+          }
+        }
+      }
+    }
+
+    // ✅ Safe wrapper to catch widget errors
+    Widget buildSafeScreen(String screenName, Widget Function() builder) {
+      try {
+        return builder();
+      } catch (e, stackTrace) {
+        print('❌ ERROR loading $screenName: $e');
+        print('Stack: $stackTrace');
+        return _buildErrorScreen(screenName, e.toString());
+      }
+    }
 
     switch (selectedItem) {
       case 'Dashboard':
-        return DashboardContent(onMenuPressed: _openDrawer);
+        print('✅ Loading Dashboard');
+        return buildSafeScreen('Dashboard', () => DashboardContent(onMenuPressed: openDrawer));
 
       case 'Sales':
-        return SizedBox(height: 600, child: SalesScreen());
+        print('✅ Loading Sales');
+        return buildSafeScreen('Sales', () => SalesScreen(onMenuPressed: openDrawer));
 
       case 'Order List':
-        return _buildScreenWithHeader(
-          'Order List Screen',
-          'assets/sales_images/orderlist.svg',
-          isMobile,
-          isTablet,
-        );
-      case 'Sales Report':
-        return _buildScreenWithHeader(
-          'Sales Report Screen',
-          'assets/sales_images/reports.svg',
-          isMobile,
-          isTablet,
-        );
-      case 'Inventory Report':
-        return _buildScreenWithHeader(
-          'Inventory Report Screen',
-          'assets/sales_images/reports.svg',
-          isMobile,
-          isTablet,
-        );
-      case 'Customer Report':
-        return _buildScreenWithHeader(
-          'Customer Report Screen',
-          'assets/sales_images/reports.svg',
-          isMobile,
-          isTablet,
-        );
+        print('✅ Loading Order List');
+        return buildSafeScreen('Order List', () => OrderListScreen(onMenuPressed: openDrawer));
+
+      case 'Reports':
+        print('✅ Loading Reports');
+        return buildSafeScreen('Reports', () => SalesReportExample(onMenuPressed: openDrawer));
+
       case 'Settings':
-        return _buildScreenWithHeader(
-          'Settings Screen',
-          'assets/sales_images/settings.svg',
-          isMobile,
-          isTablet,
-        );
+        print('✅ Loading Settings');
+        return buildSafeScreen('Settings', () => SettingsScreen(onMenuPressed: openDrawer));
+
+      case 'Inventory Report':
+        print('✅ Loading Inventory Report');
+        // Try without onMenuPressed first
+        return buildSafeScreen('Inventory Report', () {
+          return InventoryReportCreeen(onMenuPressed: openDrawer);
+        });
+      case 'Sales Report':
+        print('✅ Loading Sales Report');
+        // Try without onMenuPressed first
+        return buildSafeScreen('Sales Report', () {
+          return SalesReport(onMenuPressed: openDrawer);
+        });
+
+      case 'Customer Report':
+        print('✅ Loading Customer Report');
+        return buildSafeScreen('Customer Report', () => CustomerReport(onMenuPressed: openDrawer));
+
       default:
-        return _buildCenterText('Select a menu item', isMobile);
+        print('❌ ERROR: Unknown screen: "$selectedItem"');
+        return _buildErrorScreen('Unknown', 'Screen "$selectedItem" not found');
     }
   }
 
-  Widget _buildScreenWithHeader(String screenName, String iconPath, bool isMobile, bool isTablet) {
-    return Column(
-      children: [
-        // Header with menu button afor mobile/tablet
-        SalesHeader(
-          selectedItem: selectedItem,
-          imageMap: {selectedItem: iconPath},
-          onMenuPressed: _openDrawer,
+  // ✅ Helper method to build error screen
+  Widget _buildErrorScreen(String screenName, String error) {
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, size: 80, color: Colors.red.shade300),
+              SizedBox(height: 24),
+              Text(
+                'Error Loading $screenName',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red.shade700,
+                ),
+              ),
+              SizedBox(height: 16),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.red.shade200),
+                ),
+                child: Text(
+                  error,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.red.shade900,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ),
+              SizedBox(height: 32),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    selectedItem = 'Dashboard';
+                    selectedIndex = 0;
+                  });
+                },
+                icon: Icon(Icons.home),
+                label: Text('Go to Dashboard'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xffD2303F),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                ),
+              ),
+            ],
+          ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildCenterText(String text, bool isMobile) {
-    return Center(
-      child: Text(
-        text,
-        style: GoogleFonts.openSans(fontSize: isMobile ? 20 : 24, fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -104,17 +104,19 @@ class _GroupFilterBarState extends State<GroupFilterBar> {
                       border: Border.all(color: MyColors.borderColor),
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          ),
-                          child: Image.asset(
-                            "assets/sub_filter_icon.jpg",
-                            height: containerHeight * 0.56,
-                            width: containerWidth,
-                            fit: BoxFit.cover,
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                            child: Image.asset(
+                              "assets/sub_filter_icon.jpg",
+                              width: containerWidth,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         SizedBox(height: getProportionateScreenWidth(0.9)),

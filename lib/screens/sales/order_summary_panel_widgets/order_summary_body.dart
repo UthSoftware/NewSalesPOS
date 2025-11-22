@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/constants/my_colour.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
-// ignore: must_be_immutable
 class OrderSummaryBody extends StatelessWidget {
   OrderSummaryBody({super.key});
-  List<OrderSummaryItem> orderSummaryItemList = [
+
+  final List<OrderSummaryItem> orderSummaryItemList = [
     OrderSummaryItem(itemName: "Cold Coffee", quantity: 1, notes: "", price: 90.0),
     OrderSummaryItem(
       itemName: "Chicken Biryani",
       quantity: 2,
-      notes: "Note : Crispy tortilla chips with melted cheese, jalapeños, and salsa.",
+      notes: "Crispy tortilla chips with melted cheese, jalapeños, and salsa.",
       price: 180.0,
     ),
     OrderSummaryItem(itemName: "Paneer Butter Masala", quantity: 1, notes: "", price: 150.0),
@@ -43,195 +43,191 @@ class OrderSummaryBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: MyColors.borderColor)),
-            ),
-            child: Column(
+
+    return Column(
+      children: [
+        _buildHeader(),
+
+        Expanded(
+          child: ListView.builder(
+            itemCount: orderSummaryItemList.length,
+            itemBuilder: (context, index) {
+              final item = orderSummaryItemList[index];
+
+              return Container(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: MyColors.borderColor, width: 1.5)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildItemRow(item),
+                    if (item.notes.isNotEmpty) _buildNotes(item.notes),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: MyColors.borderColor)),
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: MyColors.orderSummaryHeaderBackground,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 6),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: MyColors.orderSummaryHeaderBackground,
+                Text(
+                  'Order Summary',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontWeight: FontWeight.w600,
+                    fontSize: getProportionateScreenWidth(4.5),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Order Summary',
-                            style: GoogleFonts.plusJakartaSans(
-                              fontWeight: FontWeight.w600,
-                              fontSize: getProportionateScreenWidth(4.5),
-                            ),
-                          ),
-                          SizedBox(width: getProportionateScreenWidth(3)),
-                          Text(
-                            'Bill No : 54124512445',
-                            style: GoogleFonts.openSans(
-                              color: Color(0XFF3B82F6),
-                              // fontWeight: FontWeight.w600,
-                              fontSize: getProportionateScreenWidth(4.1),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('Dhina', style: GoogleFonts.openSans(color: Color(0XFF3A3A3A))),
-                          SizedBox(width: getProportionateScreenWidth(1.4)),
-                          SvgPicture.asset(
-                            "assets/waiter_icon.svg",
-                            height: getProportionateScreenHeight(28),
-                            width: getProportionateScreenHeight(28),
-                          ),
-                        ],
-                      ),
-                    ],
+                ),
+                SizedBox(width: getProportionateScreenWidth(3)),
+                Text(
+                  'Bill No : 54124512445',
+                  style: GoogleFonts.openSans(
+                    color: const Color(0XFF3B82F6),
+                    fontSize: getProportionateScreenWidth(4.1),
                   ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: orderSummaryItemList.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  decoration: BoxDecoration(
-                    // color: Colors.green,
-                    border: Border(bottom: BorderSide(color: MyColors.borderColor, width: 1.5)),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                SizedBox(width: getProportionateScreenWidth(3)),
-                                SvgPicture.asset(
-                                  "assets/delete_icon.svg",
-                                  height: getProportionateScreenHeight(23),
-                                  width: getProportionateScreenHeight(23),
-                                ),
-                                SizedBox(width: getProportionateScreenWidth(3)),
-                                Text(
-                                  orderSummaryItemList[index].itemName,
-                                  style: GoogleFonts.openSans(
-                                    color: Color(0XFF3A3A3A),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: getProportionateScreenWidth(4.3),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                orderSummaryItemList[index].notes.isNotEmpty
-                                    ? "assets/noted_icon.svg"
-                                    : "assets/notes_icon.svg",
-                                height: getProportionateScreenHeight(29),
-                                width: getProportionateScreenHeight(29),
-                              ),
-                              SizedBox(width: getProportionateScreenWidth(6)),
-                              SizedBox(
-                                width: getProportionateScreenHeight(130),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SvgPicture.asset(
-                                      "assets/minus_qty.svg",
-                                      height: getProportionateScreenHeight(27),
-                                      width: getProportionateScreenHeight(27),
-                                    ),
-                                    Text(
-                                      orderSummaryItemList[index].quantity.toString(),
-                                      style: GoogleFonts.openSans(
-                                        color: Color(0XFF3A3A3A),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: getProportionateScreenWidth(4.3),
-                                      ),
-                                    ),
-                                    SvgPicture.asset(
-                                      "assets/add_qty.svg",
-                                      height: getProportionateScreenHeight(27),
-                                      width: getProportionateScreenHeight(27),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: getProportionateScreenWidth(25),
-                                child: Text(
-                                  '₹${orderSummaryItemList[index].price.toStringAsFixed(2)}',
-                                  style: GoogleFonts.openSans(
-                                    color: Color(0XFF008A05),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: getProportionateScreenWidth(4.3),
-                                  ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-                              SizedBox(width: getProportionateScreenWidth(2.5)),
-                            ],
-                          ),
-                        ],
-                      ),
-                      if (orderSummaryItemList[index].notes.isNotEmpty) ...[
-                        LayoutBuilder(
-                          builder: (context, constraints) {
-                            return Container(
-                              width: constraints.maxWidth * 0.85,
-                              margin: EdgeInsets.only(top: 14, bottom: 4),
-                              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(color: Color(0XFF3B82F6), width: 0.5),
-                              ),
-                              child: RichText(
-                                text: TextSpan(
-                                  style: const TextStyle(fontSize: 14, color: Colors.black),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Notes : ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Color(0XFF3B82F6),
-                                        // fontSize: getProportionateScreenWidth(4.3),
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: orderSummaryItemList[index].notes,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        color: Color(0XFF6A6A6A),
-                                        fontSize: getProportionateScreenWidth(3.5),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ],
-                  ),
-                );
-              },
+            Row(
+              children: [
+                Text('Dhina', style: GoogleFonts.openSans(color: const Color(0XFF3A3A3A))),
+                SizedBox(width: getProportionateScreenWidth(1.4)),
+                SvgPicture.asset(
+                  "assets/waiter_icon.svg",
+                  height: getProportionateScreenHeight(28),
+                  width: getProportionateScreenHeight(28),
+                ),
+              ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildItemRow(OrderSummaryItem item) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /// LEFT SIDE — delete icon + name
+        Expanded(
+          flex: 3,
+          child: Row(
+            children: [
+              SizedBox(width: getProportionateScreenWidth(3)),
+              SvgPicture.asset("assets/delete_icon.svg", height: getProportionateScreenHeight(23)),
+              SizedBox(width: getProportionateScreenWidth(3)),
+              Flexible(
+                child: Text(
+                  item.itemName,
+                  overflow: TextOverflow.ellipsis, // prevents overflow
+                  style: GoogleFonts.openSans(
+                    color: const Color(0XFF3A3A3A),
+                    fontWeight: FontWeight.w500,
+                    fontSize: getProportionateScreenWidth(4.3),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+
+        /// RIGHT SIDE — (notes icon) (qty) (price)
+        Expanded(
+          flex: 4,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SvgPicture.asset(
+                item.notes.isNotEmpty ? "assets/noted_icon.svg" : "assets/notes_icon.svg",
+                height: getProportionateScreenHeight(29),
+              ),
+
+              SizedBox(width: getProportionateScreenWidth(6)),
+
+              /// Quantity buttons
+              SizedBox(
+                width: getProportionateScreenWidth(32),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SvgPicture.asset("assets/minus_qty.svg", height: 24),
+                    Text(
+                      item.quantity.toString(),
+                      style: GoogleFonts.openSans(
+                        fontWeight: FontWeight.w500,
+                        fontSize: getProportionateScreenWidth(4.3),
+                      ),
+                    ),
+                    SvgPicture.asset("assets/add_qty.svg", height: 24),
+                  ],
+                ),
+              ),
+
+              SizedBox(width: getProportionateScreenWidth(4)),
+
+              /// Price
+              SizedBox(
+                width: getProportionateScreenWidth(18),
+                child: Text(
+                  '₹${item.price.toStringAsFixed(2)}',
+                  textAlign: TextAlign.end,
+                  style: GoogleFonts.openSans(
+                    color: const Color(0XFF008A05),
+                    fontWeight: FontWeight.w700,
+                    fontSize: getProportionateScreenWidth(4.3),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNotes(String notes) {
+    return Container(
+      margin: const EdgeInsets.only(top: 14, left: 8, right: 8),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: const Color(0XFF3B82F6), width: 0.5),
+      ),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(fontSize: 14, color: Colors.black),
+          children: [
+            const TextSpan(
+              text: 'Notes : ',
+              style: TextStyle(fontWeight: FontWeight.w500, color: Color(0XFF3B82F6)),
+            ),
+            TextSpan(
+              text: notes,
+              style: const TextStyle(color: Color(0XFF6A6A6A)),
+            ),
+          ],
+        ),
       ),
     );
   }
