@@ -3,7 +3,9 @@ import 'package:soft_sales/screens/sales/order_summary_panel_widgets/order_summa
 import 'package:soft_sales/screens/sales/product_panel_widgets/product_panel_ui.dart';
 
 class SalesScreen extends StatefulWidget {
-  const SalesScreen({super.key});
+  final VoidCallback onMenuPressed;
+
+  const SalesScreen({super.key, required this.onMenuPressed});
 
   @override
   State<SalesScreen> createState() => _SalesScreenState();
@@ -17,7 +19,7 @@ class _SalesScreenState extends State<SalesScreen> {
       body: Row(
         children: [
           // hi
-          Expanded(flex: 6, child: ProductPanelUi()),
+          Expanded(flex: 6, child: ProductPanelUi(onMenuPressed: widget.onMenuPressed)),
           Expanded(flex: 4, child: SalesOrderSummary()),
         ],
       ),
