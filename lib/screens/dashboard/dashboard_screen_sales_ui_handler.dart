@@ -78,24 +78,20 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
 
       drawer: (isMobile || isTablet)
           ? Drawer(
-<<<<<<< HEAD
               width: isMobile ? mediaQuery.width * 0.40 : mediaQuery.width * 0.25,
               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-=======
-              width: isMobile
-                  ? mediaQuery.width * 0.40
-                  : mediaQuery.width * 0.25, // Set drawer width
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero, // 👈 removes all rounding
-              ),
->>>>>>> 5efbc69a55a6e463e28ba0dfe656b7e4a5264603
+              // width: isMobile
+              //     ? mediaQuery.width * 0.40
+              //     : mediaQuery.width * 0.25, // Set drawer width
+              // shape: const RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.zero, // 👈 removes all rounding
+              // ),
               child: CustomDrawer(
                 selectedItem: selectedItem,
                 isReportsExpanded: isReportsExpanded,
                 isDrawerExpanded: true,
                 isMobileDrawer: true,
                 onItemSelected: (item) {
-<<<<<<< HEAD
                   print('🎯 Drawer item selected: "$item"');
                   // ✅ Close drawer first, then update state
                   if (Navigator.of(context).canPop()) {
@@ -108,30 +104,6 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                       isReportsExpanded = false;
                     });
                   });
-=======
-                  debugPrint('Selected item: $item'); // ✅ Debug print
-                  setState(() {
-                    selectedItem = item;
-                    isReportsExpanded = false;
-                    Navigator.pop(context); // Close drawer after selection
-
-                    // ✅ Update bottom nav bar index based on item
-                    if (item == 'Dashboard') {
-                      selectedIndex = 0;
-                    } else if (item == 'Sales') {
-                      selectedIndex = 1;
-                    } else if (item == 'Order List') {
-                      selectedIndex = 2;
-                    } else {
-                      // For items not in bottom nav (Settings, Reports), keep current selection
-                      // This prevents the bottom nav from deselecting all items
-                      // selectedIndex stays as is
-                    }
-                  });
-                  debugPrint(
-                    'Drawer closed, showing: $item, bottomNav index: $selectedIndex',
-                  ); // ✅ Debug print
->>>>>>> 5efbc69a55a6e463e28ba0dfe656b7e4a5264603
                 },
                 onReportsToggle: () {
                   setState(() {
