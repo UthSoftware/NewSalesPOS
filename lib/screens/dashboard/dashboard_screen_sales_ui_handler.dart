@@ -60,7 +60,6 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
               width: isMobile
                   ? mediaQuery.width * 0.40
                   : mediaQuery.width * 0.25, // Set drawer width
-
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero, // 👈 removes all rounding
               ),
