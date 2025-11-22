@@ -9,6 +9,7 @@ class SalesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Column(
       children: [
         Expanded(
@@ -20,6 +21,16 @@ class SalesScreen extends StatelessWidget {
           ),
         ),
       ],
+=======
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Row(
+        children: [
+          Expanded(flex: 6, child: ProductPanelUi()),
+          Expanded(flex: 4, child: SalesOrderSummary()),
+        ],
+      ),
+>>>>>>> 5efbc69a55a6e463e28ba0dfe656b7e4a5264603
     );
   }
 }

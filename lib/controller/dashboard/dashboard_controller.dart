@@ -1,4 +1,5 @@
 // Controller
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -21,83 +22,82 @@ class StatsController extends GetxController {
   var selectedDate = "2/01/2025-11/01/2025".obs;
   void updateSelectedDate(String newDate) {
     selectedDate.value = newDate;
-    print("Selected date changed → $newDate");
+    debugPrint("Selected date changed → $newDate");
   }
 
   // TOP SELLING PRODUCTS DATA
-  final topSelling =
-      <TopSellingProduct>[
-        TopSellingProduct(
-          rank: '01',
-          name: 'Chicken Biryani',
-          unitsSold: 22500,
-          price: 250.00,
-          revenue: 56250000.00,
-        ),
-        TopSellingProduct(
-          rank: '02',
-          name: 'Cheese Pizza',
-          unitsSold: 2000,
-          price: 180.00,
-          revenue: 360000.00,
-        ),
-        TopSellingProduct(
-          rank: '03',
-          name: 'Cold Coffee',
-          unitsSold: 1950,
-          price: 110.00,
-          revenue: 214500.00,
-        ),
-        TopSellingProduct(
-          rank: '04',
-          name: 'Paneer Tikka',
-          unitsSold: 1850,
-          price: 160.00,
-          revenue: 296000.00,
-        ),
-        TopSellingProduct(
-          rank: '05',
-          name: 'Veg Fried Rice',
-          unitsSold: 1800,
-          price: 120.00,
-          revenue: 216000.00,
-        ),
-        TopSellingProduct(
-          rank: '06',
-          name: 'Masala Dosa',
-          unitsSold: 1750,
-          price: 70.00,
-          revenue: 122500.00,
-        ),
-        TopSellingProduct(
-          rank: '07',
-          name: 'Chocolate Milkshake',
-          unitsSold: 1710,
-          price: 80.00,
-          revenue: 136800.00,
-        ),
-        TopSellingProduct(
-          rank: '08',
-          name: 'French Fries',
-          unitsSold: 1650,
-          price: 60.00,
-          revenue: 99000.00,
-        ),
-        TopSellingProduct(
-          rank: '09',
-          name: 'Egg Sandwich',
-          unitsSold: 1620,
-          price: 100.00,
-          revenue: 162000.00,
-        ),
-        TopSellingProduct(
-          rank: '10',
-          name: 'Lemon Iced Tea',
-          unitsSold: 1600,
-          price: 40.00,
-          revenue: 64000.00,
-        ),
-      ].obs;
+  final topSelling = <TopSellingProduct>[
+    TopSellingProduct(
+      rank: '01',
+      name: 'Chicken Biryani',
+      unitsSold: 22500,
+      price: 250.00,
+      revenue: 56250000.00,
+    ),
+    TopSellingProduct(
+      rank: '02',
+      name: 'Cheese Pizza',
+      unitsSold: 2000,
+      price: 180.00,
+      revenue: 360000.00,
+    ),
+    TopSellingProduct(
+      rank: '03',
+      name: 'Cold Coffee',
+      unitsSold: 1950,
+      price: 110.00,
+      revenue: 214500.00,
+    ),
+    TopSellingProduct(
+      rank: '04',
+      name: 'Paneer Tikka',
+      unitsSold: 1850,
+      price: 160.00,
+      revenue: 296000.00,
+    ),
+    TopSellingProduct(
+      rank: '05',
+      name: 'Veg Fried Rice',
+      unitsSold: 1800,
+      price: 120.00,
+      revenue: 216000.00,
+    ),
+    TopSellingProduct(
+      rank: '06',
+      name: 'Masala Dosa',
+      unitsSold: 1750,
+      price: 70.00,
+      revenue: 122500.00,
+    ),
+    TopSellingProduct(
+      rank: '07',
+      name: 'Chocolate Milkshake',
+      unitsSold: 1710,
+      price: 80.00,
+      revenue: 136800.00,
+    ),
+    TopSellingProduct(
+      rank: '08',
+      name: 'French Fries',
+      unitsSold: 1650,
+      price: 60.00,
+      revenue: 99000.00,
+    ),
+    TopSellingProduct(
+      rank: '09',
+      name: 'Egg Sandwich',
+      unitsSold: 1620,
+      price: 100.00,
+      revenue: 162000.00,
+    ),
+    TopSellingProduct(
+      rank: '10',
+      name: 'Lemon Iced Tea',
+      unitsSold: 1600,
+      price: 40.00,
+      revenue: 64000.00,
+    ),
+  ].obs;
 
   RxList<List<String>> topSellingList = <List<String>>[].obs;
 
@@ -130,49 +130,24 @@ class StatsController extends GetxController {
     }).toList();
   }
 
-  final nonMoving =
-      <NonMovingProduct>[
-        NonMovingProduct(
-          rank: '01',
-          name: 'Truffle Oil Fries',
-          soldQty: 25,
-          age: 15,
-          unsoldStock: 0,
-        ),
-        NonMovingProduct(rank: '02', name: 'Lobster Bisque', soldQty: 23, age: 15, unsoldStock: 0),
-        NonMovingProduct(rank: '03', name: 'Quinoa Salad', soldQty: 10, age: 14, unsoldStock: 0),
-        NonMovingProduct(
-          rank: '04',
-          name: 'Foie Gras Appetizer',
-          soldQty: 10,
-          age: 13,
-          unsoldStock: 0,
-        ),
-        NonMovingProduct(
-          rank: '05',
-          name: 'Gluten-Free Brownie',
-          soldQty: 10,
-          age: 13,
-          unsoldStock: 0,
-        ),
-        NonMovingProduct(rank: '06', name: 'Kombucha on Tap', soldQty: 12, age: 12, unsoldStock: 0),
-        NonMovingProduct(rank: '07', name: 'Venison Steak', soldQty: 12, age: 12, unsoldStock: 0),
-        NonMovingProduct(
-          rank: '08',
-          name: 'Oysters Rockefeller',
-          soldQty: 12,
-          age: 12,
-          unsoldStock: 0,
-        ),
-        NonMovingProduct(
-          rank: '09',
-          name: 'Artisanal Cheese Plate',
-          soldQty: 11,
-          age: 11,
-          unsoldStock: 0,
-        ),
-        NonMovingProduct(rank: '10', name: 'Avocado Toast', soldQty: 11, age: 11, unsoldStock: 0),
-      ].obs;
+  final nonMoving = <NonMovingProduct>[
+    NonMovingProduct(rank: '01', name: 'Truffle Oil Fries', soldQty: 25, age: 15, unsoldStock: 0),
+    NonMovingProduct(rank: '02', name: 'Lobster Bisque', soldQty: 23, age: 15, unsoldStock: 0),
+    NonMovingProduct(rank: '03', name: 'Quinoa Salad', soldQty: 10, age: 14, unsoldStock: 0),
+    NonMovingProduct(rank: '04', name: 'Foie Gras Appetizer', soldQty: 10, age: 13, unsoldStock: 0),
+    NonMovingProduct(rank: '05', name: 'Gluten-Free Brownie', soldQty: 10, age: 13, unsoldStock: 0),
+    NonMovingProduct(rank: '06', name: 'Kombucha on Tap', soldQty: 12, age: 12, unsoldStock: 0),
+    NonMovingProduct(rank: '07', name: 'Venison Steak', soldQty: 12, age: 12, unsoldStock: 0),
+    NonMovingProduct(rank: '08', name: 'Oysters Rockefeller', soldQty: 12, age: 12, unsoldStock: 0),
+    NonMovingProduct(
+      rank: '09',
+      name: 'Artisanal Cheese Plate',
+      soldQty: 11,
+      age: 11,
+      unsoldStock: 0,
+    ),
+    NonMovingProduct(rank: '10', name: 'Avocado Toast', soldQty: 11, age: 11, unsoldStock: 0),
+  ].obs;
   void fetchSalesData() {
     salesList.value = [
       // Days 1-5: Starting low, gradual increase

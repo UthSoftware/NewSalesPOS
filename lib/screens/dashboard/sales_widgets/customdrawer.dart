@@ -1,5 +1,7 @@
 // CUSTOMDRAWER.DART - SMOOTH ANIMATION & NO TOOLTIPS
 
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
