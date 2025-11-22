@@ -18,12 +18,8 @@ class _SalesScreenState extends State<SalesScreen> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-<<<<<<< Updated upstream
           // hi
           Expanded(flex: 6, child: ProductPanelUi(onMenuPressed: widget.onMenuPressed)),
-=======
-          Expanded(flex: 6, child: ProductPanelUi()),
->>>>>>> Stashed changes
           Expanded(flex: 4, child: SalesOrderSummary()),
         ],
       ),
