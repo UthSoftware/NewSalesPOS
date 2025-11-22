@@ -238,12 +238,14 @@ class OrderSummaryBody extends StatelessWidget {
 }
 
 class OrderSummaryItem {
+  String? kotId;
   String itemName;
   double quantity;
   String notes;
   double price;
 
   OrderSummaryItem({
+    this.kotId,
     required this.itemName,
     required this.quantity,
     required this.notes,
