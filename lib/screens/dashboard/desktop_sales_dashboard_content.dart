@@ -1,12 +1,10 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/controller/dashboard/dashboard_controller.dart';
 import 'package:soft_sales/screens/dashboard/chart%20_and_inventory_section.dart';
 import 'package:soft_sales/screens/dashboard/overall_statistics_section.dart';
-import 'package:soft_sales/screens/dashboard/sales_widgets/sales_header.dart';
 import 'package:soft_sales/screens/dashboard/top_product_section.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
@@ -36,77 +34,130 @@ class _DashboardContentState extends State<DashboardContent> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildContent(context);
-  }
-
-  Widget _buildContent(BuildContext context) {
     SizeConfig().init(context);
     final width = MediaQuery.of(context).size.width;
 
     final isMobile = width < 600;
     final bool isTablet = width >= 600 && width <= 1000;
 
-    return Column(
-      children: [
-        SalesHeader(
-          selectedItem: selectedItem,
-          imageMap: _imageMap,
-          onMenuPressed: widget.onMenuPressed, // ✅ Pass callback to header
-        ),
-
-        Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: isMobile
-                    ? getProportionateScreenHeight(5)
-                    : getProportionateScreenHeight(5),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: isMobile ? getProportionateScreenHeight(50) : getProportionateScreenHeight(60),
+            decoration: BoxDecoration(color: Colors.white),
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: getProportionateScreenWidth(5),
+                right: getProportionateScreenWidth(7),
               ),
-
-              if (isMobile || isTablet)
-                Padding(
-                  padding: EdgeInsets.only(left: getProportionateScreenWidth(12)),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/sales_images/dashboard.svg',
-                        width: 20,
-                        height: 20,
-                        color: const Color(0xff5A5A5A),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        selectedItem,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xff5A5A5A),
-                          fontWeight: FontWeight.w600,
+              child: Row(
+                children: [
+                  // ✅ Show only on mobile & tablet with tap functionality
+                  if (isMobile || isTablet)
+                    InkWell(
+                      onTap: () {
+                        if (widget.onMenuPressed != null) {
+                          widget.onMenuPressed!(); // 👈 FIXED
+                        }
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
+                        child: SvgPicture.asset(
+                          'assets/sales_images/uthpos.svg',
+                          width: 24,
+                          height: 24,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              SizedBox(
-                height: isMobile
-                    ? getProportionateScreenHeight(5)
-                    : getProportionateScreenHeight(5),
+                    ),
+
+                  // ✅ Show only on desktop AND when selectedItem is NOT 'Dashboard'
+                  if (!isMobile && !isTablet) ...[
+                    SvgPicture.asset(
+                      'assets/sales_images/dashboard.svg',
+                      height: 24,
+                      color: const Color(0xff5A5A5A),
+                    ),
+
+                    SizedBox(width: getProportionateScreenWidth(2)),
+                    Expanded(
+                      child: Text(
+                        selectedItem,
+                        style: GoogleFonts.openSans(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xff5A5A5A),
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+
+                  Spacer(),
+
+                  // User Avatar (always visible)
+                  Icon(Icons.person, color: Colors.pink, size: isMobile ? 20 : 24),
+                ],
               ),
-
-              OverallStatisticsSection(controller: controller, isMobile: isMobile, width: width),
-
-              SizedBox(height: isMobile ? 20 : 40),
-
-              ChartAndInventorySection(controller: controller),
-              const SizedBox(height: 40),
-              TopProductsSection(controller: controller),
-              const SizedBox(height: 20),
-            ],
+            ),
           ),
-        ),
-      ],
+
+          Container(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Divider(color: Color(0xff000000).withOpacity(.1)),
+
+                SizedBox(
+                  height: isMobile
+                      ? getProportionateScreenHeight(5)
+                      : getProportionateScreenHeight(5),
+                ),
+
+                if (isMobile || isTablet)
+                  Padding(
+                    padding: EdgeInsets.only(left: getProportionateScreenWidth(12)),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/sales_images/dashboard.svg',
+                          width: 20,
+                          height: 20,
+                          color: const Color(0xff5A5A5A),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          selectedItem,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Color(0xff5A5A5A),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                SizedBox(
+                  height: isMobile
+                      ? getProportionateScreenHeight(5)
+                      : getProportionateScreenHeight(5),
+                ),
+
+                OverallStatisticsSection(controller: controller, isMobile: isMobile, width: width),
+
+                SizedBox(height: isMobile ? 20 : 40),
+
+                ChartAndInventorySection(controller: controller),
+                const SizedBox(height: 40),
+                TopProductsSection(controller: controller),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

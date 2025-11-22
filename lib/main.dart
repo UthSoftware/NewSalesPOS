@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:soft_sales/screens/dashboard/dashboard_screen_sales_ui_handler.dart';
 
 void main() {
@@ -10,11 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'SALES POS',
       debugShowCheckedModeBanner: false,
-      home:
-          DashboardScreenSalesUiHandler(), //DineInTablesScreen(), // SalesScreen(), // SalesLoginScreen(),//DashboardScreenSalesUiHandler
+      initialRoute: '/',
+      getPages: [GetPage(name: '/', page: () => const DashboardScreenSalesUiHandler())],
+      // home:
+      //     DashboardScreenSalesUiHandler(), //DineInTablesScreen(), // SalesScreen(), // SalesLoginScreen(),//DashboardScreenSalesUiHandler
     );
   }
 }

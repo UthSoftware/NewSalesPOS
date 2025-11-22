@@ -8,7 +8,9 @@ import 'package:soft_sales/screens/sales/product_panel_widgets/sub_group_filter_
 import 'package:soft_sales/utils/sizeConfig.dart';
 
 class ProductPanelUi extends StatefulWidget with MyColors {
-  const ProductPanelUi({super.key});
+  final VoidCallback onMenuPressed;
+
+  const ProductPanelUi({super.key, required this.onMenuPressed});
 
   @override
   State<ProductPanelUi> createState() => _ProductPanelUiState();
@@ -25,7 +27,7 @@ class _ProductPanelUiState extends State<ProductPanelUi> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              FilterHeaderWidget(),
+              FilterHeaderWidget(onMenuPressed: widget.onMenuPressed),
               SubFilterTabBar(),
               GroupFilterBar(),
               SubGroupFilterBar(),
