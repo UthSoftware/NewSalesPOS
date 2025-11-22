@@ -16,8 +16,8 @@ class _SalesScreenState extends State<SalesScreen> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          Expanded(flex: 3, child: ProductPanelUi()),
-          Expanded(flex: 2, child: SalesOrderSummary()),
+          Expanded(flex: 6, child: ProductPanelUi()),
+          Expanded(flex: 4, child: SalesOrderSummary()),
         ],
       ),
     );

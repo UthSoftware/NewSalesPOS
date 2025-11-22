@@ -84,6 +84,8 @@ class MainNavigationPage extends StatelessWidget {
                     ),
                   ),
 
+                  /// Divider [navController]
+
                   // Toggle Sidebar Button
                   Divider(color: Colors.white24, height: 1),
                   InkWell(
@@ -166,8 +168,8 @@ class FirstScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("First Page")),
-      body: Center(child: Text('First Screen', style: TextStyle(fontSize: 24))),
+      appBar: AppBar(title: Text("1st Page")),
+      body: Center(child: Text('1st Screen', style: TextStyle(fontSize: 24))),
     );
   }
 }
@@ -178,8 +180,8 @@ class SecoundScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Second Page")),
-      body: Center(child: Text('Second Screen', style: TextStyle(fontSize: 24))),
+      appBar: AppBar(title: Text("2nd Page")),
+      body: Center(child: Text('2nd Screen', style: TextStyle(fontSize: 24))),
     );
   }
 }
@@ -190,8 +192,8 @@ class ThirdScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Third Page")),
-      body: Center(child: Text('Third Screen', style: TextStyle(fontSize: 24))),
+      appBar: AppBar(title: Text("3rd Page")),
+      body: Center(child: Text('3rd Screen', style: TextStyle(fontSize: 24))),
     );
   }
 }
@@ -202,8 +204,8 @@ class FourthScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Fourth Page")),
-      body: Center(child: Text('Fourth Screen', style: TextStyle(fontSize: 24))),
+      appBar: AppBar(title: Text("4th Page")),
+      body: Center(child: Text('4th Screen', style: TextStyle(fontSize: 24))),
     );
   }
 }
@@ -214,8 +216,8 @@ class FifthScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Fifth Page")),
-      body: Center(child: Text('Fifth Screen', style: TextStyle(fontSize: 24))),
+      appBar: AppBar(title: Text("5th Page")),
+      body: Center(child: Text('5th Screen', style: TextStyle(fontSize: 24))),
     );
   }
 }
