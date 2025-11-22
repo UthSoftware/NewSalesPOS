@@ -18,7 +18,6 @@ class _SalesScreenState extends State<SalesScreen> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          // hi
           Expanded(flex: 6, child: ProductPanelUi(onMenuPressed: widget.onMenuPressed)),
           Expanded(flex: 4, child: SalesOrderSummary()),
         ],

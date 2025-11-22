@@ -63,11 +63,6 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
     final collapsedDrawerWidth = isMobile
         ? getProportionateScreenWidth(10)
         : getProportionateScreenWidth(18);
-    final expandedDrawerWidth = isMobile
-        ? getProportionateScreenWidth(20)
-        : isTablet
-        ? getProportionateScreenWidth(30)
-        : getProportionateScreenWidth(55);
 
     return Scaffold(
       key: _scaffoldKey,

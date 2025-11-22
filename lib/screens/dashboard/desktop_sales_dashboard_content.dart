@@ -21,8 +21,6 @@ class _DashboardContentState extends State<DashboardContent> {
   StatsController controller = Get.put(StatsController());
   bool isUnitsSoldDescending = true;
   bool isSoldQtyDescending = true;
-  bool isPriceDescending = true;
-  final Map<String, String> _imageMap = {'Dashboard': 'assets/sales_images/dashboard.svg'};
   String selectedItem = 'Dashboard';
 
   @override
