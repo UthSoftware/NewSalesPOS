@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_sales/constants/my_colour.dart';
+import 'package:soft_sales/screens/sales/order_summary_panel_widgets/filter_and_add_item.dart';
 import 'package:soft_sales/screens/sales/order_summary_panel_widgets/order_summary_body.dart';
 import 'package:soft_sales/screens/sales/order_summary_panel_widgets/order_summary_footer.dart';
 import 'package:soft_sales/screens/sales/order_summary_panel_widgets/order_summary_header.dart';
@@ -19,7 +20,9 @@ class SalesOrderSummary extends StatelessWidget with MyColors {
               color: Colors.white,
               border: Border(left: BorderSide(color: MyColors.borderColor)),
             ),
-            child: Column(children: [SalesOrderSummaryHeader(), OrderSummaryBody()]),
+            child: Column(
+              children: [SalesOrderSummaryHeader(), FilterAndAddItem(), OrderSummaryBody()],
+            ),
           ),
         ),
         OrderSummaryFooter(),
