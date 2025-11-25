@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/controller/dashboard/dashboard_controller.dart';
 import 'package:soft_sales/screens/dashboard/sales_widgets/date_picker.dart';
 import 'package:soft_sales/screens/dashboard/sales_widgets/statcard_container.dart';
+import 'package:soft_sales/utils/sizeConfig.dart';
 
 class OverallStatisticsSection extends StatefulWidget {
   final StatsController controller;
@@ -50,11 +51,17 @@ class _OverallStatisticsSectionState extends State<OverallStatisticsSection> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return Column(
       children: [
         // Header with date dropdown
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: widget.isMobile ? 20 : 20),
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.isMobile
+                ? getProportionateScreenWidth(7)
+                : getProportionateScreenWidth(7),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -63,26 +70,29 @@ class _OverallStatisticsSectionState extends State<OverallStatisticsSection> {
                   'Overall Statistics',
                   style: GoogleFonts.openSans(
                     color: const Color(0xff1E1E1E),
-                    fontSize: widget.isMobile ? 16 : 20,
+                    fontSize: widget.isMobile
+                        ? getProportionateScreenHeight(18)
+                        : getProportionateScreenHeight(24),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
               InkWell(
                 onTap: () {
                   _showCustomDateRangePicker(context);
                 },
                 child: Container(
-                  height: 35,
-                  width: 190,
+                  height: getProportionateScreenHeight(35),
+                  width: widget.isMobile
+                      ? getProportionateScreenWidth(140)
+                      : getProportionateScreenWidth(55),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.grey.shade400),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(3)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -99,8 +109,11 @@ class _OverallStatisticsSectionState extends State<OverallStatisticsSection> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const SizedBox(width: 5),
-                        Icon(Icons.calendar_today, size: 16, color: Colors.grey.shade600),
+                        Icon(
+                          Icons.calendar_today,
+                          size: getProportionateScreenHeight(16),
+                          color: Colors.grey.shade600,
+                        ),
                       ],
                     ),
                   ),
@@ -109,11 +122,19 @@ class _OverallStatisticsSectionState extends State<OverallStatisticsSection> {
             ],
           ),
         ),
-        SizedBox(height: widget.isMobile ? 16 : 24),
+        SizedBox(
+          height: widget.isMobile
+              ? getProportionateScreenHeight(16)
+              : getProportionateScreenHeight(24),
+        ),
 
         // Stats Grid Section
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: widget.width >= 600 ? 20 : 15),
+          padding: EdgeInsets.symmetric(
+            horizontal: widget.width >= 600
+                ? getProportionateScreenWidth(7)
+                : getProportionateScreenWidth(10),
+          ),
           child: LayoutBuilder(
             builder: (context, constraints) {
               int crossAxisCount;
@@ -195,51 +216,4 @@ class _OverallStatisticsSectionState extends State<OverallStatisticsSection> {
       ],
     );
   }
-
-  // void _showDateRangePicker(BuildContext context) {
-  //   double dialogWidth;
-  //   double dialogHeight;
-
-  //   if (widget.isMobile) {
-  //     dialogWidth = MediaQuery.of(context).size.width * 0.65;
-  //     dialogHeight = MediaQuery.of(context).size.height * 0.90;
-  //   } else if (widget.width < 900) {
-  //     dialogWidth = MediaQuery.of(context).size.width * 0.45;
-  //     dialogHeight = MediaQuery.of(context).size.height * 98;
-  //   } else {
-  //     dialogWidth = MediaQuery.of(context).size.width * 0.28;
-  //     dialogHeight = MediaQuery.of(context).size.height * 60;
-  //   }
-
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: true,
-  //     builder: (BuildContext dialogContext) {
-  //       return Dialog(
-  //         backgroundColor: Colors.white,
-  //         child: SizedBox(
-  //           width: dialogWidth,
-  //           height: dialogHeight,
-  //           child: CustomDateRangePicker(
-  //             minimumDate: DateTime.now().subtract(const Duration(days: 365)),
-  //             maximumDate: DateTime.now().add(const Duration(days: 365)),
-  //             initialEndDate: endDate,
-  //             initialStartDate: startDate,
-
-  //             backgroundColor: Colors.white,
-  //             primaryColor: Color(0xffD2303F),
-
-  //             onApplyClick: (start, end) {
-  //               setState(() {
-  //                 startDate = start;
-  //                 endDate = end;
-  //               });
-  //             },
-  //             onCancelClick: () {},
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }

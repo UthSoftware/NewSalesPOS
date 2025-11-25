@@ -103,7 +103,7 @@ class StatCard extends StatelessWidget {
               fontSize: labelSize,
               color: const Color(0xff5A5A5A),
               fontWeight: FontWeight.w600,
-              height: 1.3,
+              height: getProportionateScreenHeight(1.3),
             ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -122,7 +122,7 @@ class StatCard extends StatelessWidget {
                   fontSize: valueSize,
                   fontWeight: FontWeight.w700,
                   color: Color(stat.color),
-                  height: 1.0,
+                  height: getProportionateScreenHeight(1),
                   letterSpacing: -0.3,
                 ),
               ),
@@ -143,7 +143,7 @@ class StatCard extends StatelessWidget {
                   size: iconSize,
                   color: stat.isTrendUp ? const Color(0xff078747) : const Color(0xffD60F0F),
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: getProportionateScreenWidth(4)),
                 Text(
                   "${stat.num}${stat.percent}",
                   style: GoogleFonts.openSans(
@@ -152,7 +152,7 @@ class StatCard extends StatelessWidget {
                     color: stat.isTrendUp ? const Color(0xff078747) : const Color(0xffD60F0F),
                   ),
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: getProportionateScreenWidth(4)),
                 Text(
                   "than ${stat.trend}",
                   style: GoogleFonts.openSans(
