@@ -400,12 +400,17 @@ class _OrderSummaryBodyState extends State<OrderSummaryBody> {
               ),
               SizedBox(width: getProportionateScreenWidth(3)),
               Flexible(
-                child: Text(
-                  item.itemName,
-                  style: GoogleFonts.openSans(
-                    color: const Color(0XFF3A3A3A),
-                    fontWeight: FontWeight.w500,
-                    fontSize: getProportionateScreenWidth(4.3),
+                child: GestureDetector(
+                  onTap: () {
+                    _openProductEdit(context);
+                  },
+                  child: Text(
+                    item.itemName,
+                    style: GoogleFonts.openSans(
+                      color: const Color(0XFF3A3A3A),
+                      fontWeight: FontWeight.w500,
+                      fontSize: getProportionateScreenWidth(4.3),
+                    ),
                   ),
                 ),
               ),
