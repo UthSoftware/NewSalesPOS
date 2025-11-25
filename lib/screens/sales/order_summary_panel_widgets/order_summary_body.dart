@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/constants/my_colour.dart';
+import 'package:soft_sales/screens/sales/order_summary_panel_widgets/product_details_view.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
 // ignore: must_be_immutable
@@ -104,7 +105,7 @@ class OrderSummaryBody extends StatelessWidget {
               itemCount: orderSummaryItemList.length,
               itemBuilder: (context, index) {
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: 14),
+                  // padding: EdgeInsets.symmetric(vertical: 14),
                   decoration: BoxDecoration(
                     // color: Colors.green,
                     border: Border(bottom: BorderSide(color: MyColors.borderColor, width: 1.5)),
@@ -123,12 +124,29 @@ class OrderSummaryBody extends StatelessWidget {
                                   width: getProportionateScreenHeight(23),
                                 ),
                                 SizedBox(width: getProportionateScreenWidth(3)),
-                                Text(
-                                  orderSummaryItemList[index].itemName,
-                                  style: GoogleFonts.openSans(
-                                    color: Color(0XFF3A3A3A),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: getProportionateScreenWidth(4.3),
+                                Expanded(
+                                  child: MouseRegion(
+                                    cursor:
+                                        SystemMouseCursors.click, // Sets the hand cursor on hover
+
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print('-----------> Product Details Viewed');
+                                        _openProductEdit(context);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(vertical: 14),
+                                        // decoration: BoxDecoration(color: Colors.amber),
+                                        child: Text(
+                                          orderSummaryItemList[index].itemName,
+                                          style: GoogleFonts.openSans(
+                                            color: Color(0XFF3A3A3A),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: getProportionateScreenWidth(4.3),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -192,7 +210,7 @@ class OrderSummaryBody extends StatelessWidget {
                           builder: (context, constraints) {
                             return Container(
                               width: constraints.maxWidth * 0.85,
-                              margin: EdgeInsets.only(top: 14, bottom: 4),
+                              margin: EdgeInsets.only(top: 0, bottom: 14),
                               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
@@ -234,6 +252,26 @@ class OrderSummaryBody extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Smart navigation based on screen size
+  void _openProductEdit(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < 600;
+
+    if (isMobile) {
+      // Mobile: Navigate to new screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ResponsiveProductEditScreen()),
+      );
+    } else {
+      // Tablet/Desktop: Show dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => ResponsiveProductEditScreen(),
+      );
+    }
   }
 }
 

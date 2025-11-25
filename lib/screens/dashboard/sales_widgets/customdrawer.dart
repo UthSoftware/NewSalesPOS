@@ -68,17 +68,27 @@ class CustomDrawer extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
 
-    final menuFontSize = isMobile ? 14.0 : 14.0;
-    final submenuFontSize = isMobile ? 14.0 : 13.0;
-    final versionFontSize = isMobile ? 12.0 : 11.0;
+    final menuFontSize = isMobile
+        ? getProportionateScreenHeight(14)
+        : getProportionateScreenHeight(20);
+    final submenuFontSize = isMobile
+        ? getProportionateScreenHeight(14)
+        : getProportionateScreenHeight(13);
+    final versionFontSize = isMobile
+        ? getProportionateScreenHeight(12)
+        : getProportionateScreenHeight(11);
 
-    final iconWidth = isMobile ? 20.0 : getProportionateScreenWidth(6.5);
-    final iconHeight = isMobile ? 20.0 : getProportionateScreenHeight(26);
+    final iconWidth = isMobile ? getProportionateScreenWidth(20) : getProportionateScreenWidth(6.5);
+    final iconHeight = isMobile
+        ? getProportionateScreenHeight(20)
+        : getProportionateScreenHeight(26);
 
     final logoWidth = isMobile
-        ? (isDrawerExpanded ? 50.0 : 30.0)
+        ? (isDrawerExpanded ? getProportionateScreenWidth(50) : getProportionateScreenWidth(30))
         : (isDrawerExpanded ? getProportionateScreenWidth(35) : getProportionateScreenWidth(10));
-    final logoHeight = isMobile ? 30.0 : getProportionateScreenHeight(45);
+    final logoHeight = isMobile
+        ? getProportionateScreenHeight(30)
+        : getProportionateScreenHeight(45);
 
     return Container(
       decoration: BoxDecoration(
@@ -91,7 +101,7 @@ class CustomDrawer extends StatelessWidget {
         children: [
           // Header Logo
           Container(
-            height: isMobile ? 50.0 : getProportionateScreenHeight(70),
+            height: isMobile ? getProportionateScreenHeight(50) : getProportionateScreenHeight(70),
             decoration: BoxDecoration(
               color: isDrawerExpanded ? Color(0xffEEEEEE) : Colors.white,
               border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
@@ -120,7 +130,9 @@ class CustomDrawer extends StatelessWidget {
           Expanded(
             child: ListView(
               padding: EdgeInsets.symmetric(
-                vertical: isMobile ? 8.0 : getProportionateScreenHeight(8),
+                vertical: isMobile
+                    ? getProportionateScreenHeight(8)
+                    : getProportionateScreenHeight(8),
               ),
               children: [
                 DrawerMenuItem(
@@ -216,7 +228,11 @@ class CustomDrawer extends StatelessWidget {
                   isMobileDrawer: isMobileDrawer,
                   onTap: () => handleItemTap('Settings'),
                 ),
-                SizedBox(height: isMobile ? 8.0 : getProportionateScreenHeight(8)),
+                SizedBox(
+                  height: isMobile
+                      ? getProportionateScreenHeight(8)
+                      : getProportionateScreenHeight(8),
+                ),
                 DrawerMenuItem(
                   iconPath: 'assets/sales_images/logout.svg',
                   title: 'Logout',
@@ -245,11 +261,15 @@ class CustomDrawer extends StatelessWidget {
               child: InkWell(
                 onTap: onDrawerToggle,
                 child: SizedBox(
-                  height: isMobile ? 40.0 : getProportionateScreenHeight(48),
+                  height: isMobile
+                      ? getProportionateScreenHeight(40)
+                      : getProportionateScreenHeight(48),
                   child: Icon(
                     isDrawerExpanded ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right,
                     color: Colors.grey[600],
-                    size: isMobile ? 24.0 : 20.0,
+                    size: isMobile
+                        ? getProportionateScreenHeight(24)
+                        : getProportionateScreenHeight(20),
                   ),
                 ),
               ),
@@ -258,7 +278,9 @@ class CustomDrawer extends StatelessWidget {
           // Version Info
           if (isDrawerExpanded)
             Padding(
-              padding: EdgeInsets.all(isMobile ? 3.0 : getProportionateScreenWidth(3)),
+              padding: EdgeInsets.all(
+                isMobile ? getProportionateScreenWidth(3) : getProportionateScreenWidth(3),
+              ),
               child: Text(
                 'Version 1.00.23.000',
                 style: TextStyle(fontSize: versionFontSize, color: Colors.grey[600]),
@@ -334,14 +356,22 @@ class _DrawerMenuItemState extends State<DrawerMenuItem> {
           // ✅ SMOOTH ANIMATION - Increased duration for smoother transition
           duration: const Duration(milliseconds: 350),
           curve: Curves.easeInOutCubic, // ✅ Smoother curve
-          height: widget.isMobile ? 40.0 : getProportionateScreenHeight(44),
+          height: widget.isMobile
+              ? getProportionateScreenHeight(40)
+              : getProportionateScreenHeight(44),
           margin: EdgeInsets.symmetric(
-            horizontal: widget.isMobile ? 2.3 : getProportionateScreenWidth(2.3),
-            vertical: widget.isMobile ? 3.0 : getProportionateScreenHeight(3),
+            horizontal: widget.isMobile
+                ? getProportionateScreenWidth(2.3)
+                : getProportionateScreenWidth(2.3),
+            vertical: widget.isMobile
+                ? getProportionateScreenHeight(3)
+                : getProportionateScreenHeight(3),
           ),
           padding: EdgeInsets.symmetric(
             horizontal: widget.isExpanded
-                ? (widget.isMobile ? 2.0 : getProportionateScreenWidth(2))
+                ? (widget.isMobile
+                      ? getProportionateScreenWidth(2)
+                      : getProportionateScreenWidth(2))
                 : 0,
           ),
           decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8)),
@@ -358,7 +388,11 @@ class _DrawerMenuItemState extends State<DrawerMenuItem> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      SizedBox(width: widget.isMobile ? 2.0 : getProportionateScreenWidth(2)),
+                      SizedBox(
+                        width: widget.isMobile
+                            ? getProportionateScreenWidth(2)
+                            : getProportionateScreenWidth(2),
+                      ),
                       Expanded(
                         child: Text(
                           widget.title,
@@ -449,7 +483,7 @@ class _DrawerMenuItemWithSubmenuState extends State<DrawerMenuItemWithSubmenu> {
         : Colors.grey.shade100;
 
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(5.0),
       child: Column(
         children: [
           MouseRegion(
@@ -463,14 +497,22 @@ class _DrawerMenuItemWithSubmenuState extends State<DrawerMenuItemWithSubmenu> {
                 // ✅ SMOOTH ANIMATION
                 duration: const Duration(milliseconds: 350),
                 curve: Curves.easeInOutCubic,
-                height: widget.isMobile ? 30.0 : getProportionateScreenHeight(40),
+                height: widget.isMobile
+                    ? getProportionateScreenHeight(30)
+                    : getProportionateScreenHeight(40),
                 margin: EdgeInsets.symmetric(
-                  horizontal: widget.isMobile ? 0.3 : getProportionateScreenWidth(0.3),
-                  vertical: widget.isMobile ? 3.0 : getProportionateScreenHeight(6),
+                  horizontal: widget.isMobile
+                      ? getProportionateScreenWidth(0.3)
+                      : getProportionateScreenWidth(0.3),
+                  vertical: widget.isMobile
+                      ? getProportionateScreenHeight(3)
+                      : getProportionateScreenHeight(6),
                 ),
                 padding: EdgeInsets.symmetric(
                   horizontal: widget.isExpanded
-                      ? (widget.isMobile ? 2.0 : getProportionateScreenWidth(2))
+                      ? (widget.isMobile
+                            ? getProportionateScreenWidth(2)
+                            : getProportionateScreenWidth(2))
                       : 0,
                 ),
                 decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8)),
@@ -487,7 +529,11 @@ class _DrawerMenuItemWithSubmenuState extends State<DrawerMenuItemWithSubmenu> {
                                 fit: BoxFit.contain,
                               ),
                             ),
-                            SizedBox(width: widget.isMobile ? 2.0 : getProportionateScreenWidth(2)),
+                            SizedBox(
+                              width: widget.isMobile
+                                  ? getProportionateScreenWidth(2)
+                                  : getProportionateScreenWidth(2),
+                            ),
                             Expanded(
                               child: Text(
                                 widget.title,
@@ -506,7 +552,9 @@ class _DrawerMenuItemWithSubmenuState extends State<DrawerMenuItemWithSubmenu> {
                                   ? Icons.arrow_drop_up
                                   : Icons.arrow_drop_down,
                               color: baseColor,
-                              size: widget.isMobile ? 18.0 : 20.0,
+                              size: widget.isMobile
+                                  ? getProportionateScreenHeight(18)
+                                  : getProportionateScreenHeight(20),
                             ),
                           ],
                         )
@@ -591,14 +639,24 @@ class _SubMenuItemState extends State<SubMenuItem> {
       child: InkWell(
         onTap: widget.onTap,
         child: Container(
-          height: widget.isMobile ? 30.0 : getProportionateScreenHeight(38),
+          height: widget.isMobile
+              ? getProportionateScreenHeight(30)
+              : getProportionateScreenHeight(38),
           margin: EdgeInsets.symmetric(
-            horizontal: widget.isMobile ? 0.5 : getProportionateScreenWidth(2),
-            vertical: widget.isMobile ? 2.0 : getProportionateScreenHeight(2),
+            horizontal: widget.isMobile
+                ? getProportionateScreenWidth(.5)
+                : getProportionateScreenWidth(2),
+            vertical: widget.isMobile
+                ? getProportionateScreenHeight(2)
+                : getProportionateScreenHeight(2),
           ),
           padding: EdgeInsets.only(
-            left: widget.isMobile ? 11.0 : getProportionateScreenWidth(11),
-            right: widget.isMobile ? 2.0 : getProportionateScreenWidth(1),
+            left: widget.isMobile
+                ? getProportionateScreenWidth(11)
+                : getProportionateScreenWidth(11),
+            right: widget.isMobile
+                ? getProportionateScreenWidth(2)
+                : getProportionateScreenWidth(1),
           ),
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(6)),
