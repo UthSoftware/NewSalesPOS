@@ -132,7 +132,9 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
             AnimatedContainer(
               duration: const Duration(milliseconds: 400),
               curve: Curves.easeInOutCubic,
-              width: isDrawerExpanded ? 200 : 70,
+              width: isDrawerExpanded
+                  ? getProportionateScreenWidth(60)
+                  : getProportionateScreenWidth(17),
               child: CustomDrawer(
                 selectedItem: selectedItem,
                 isReportsExpanded: isReportsExpanded,
@@ -181,8 +183,8 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/sales_images/dashboard.svg',
-                    width: 24,
-                    height: 24,
+                    width: getProportionateScreenWidth(26),
+                    height: getProportionateScreenHeight(26),
                     colorFilter: ColorFilter.mode(
                       selectedIndex == 0 ? const Color(0xffD2303F) : Colors.grey,
                       BlendMode.srcIn,
@@ -193,8 +195,8 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/sales_images/sales.svg',
-                    width: 24,
-                    height: 24,
+                    width: getProportionateScreenWidth(26),
+                    height: getProportionateScreenHeight(26),
                     colorFilter: ColorFilter.mode(
                       selectedIndex == 1 ? const Color(0xffD2303F) : Colors.grey,
                       BlendMode.srcIn,
@@ -205,8 +207,8 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/sales_images/orderlist.svg',
-                    width: 24,
-                    height: 24,
+                    width: getProportionateScreenWidth(26),
+                    height: getProportionateScreenHeight(26),
                     colorFilter: ColorFilter.mode(
                       selectedIndex == 2 ? const Color(0xffD2303F) : Colors.grey,
                       BlendMode.srcIn,
@@ -217,8 +219,8 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/sales_images/reports.svg',
-                    width: 24,
-                    height: 24,
+                    width: getProportionateScreenWidth(26),
+                    height: getProportionateScreenHeight(26),
                     colorFilter: ColorFilter.mode(
                       selectedIndex == 3 ? const Color(0xffD2303F) : Colors.grey,
                       BlendMode.srcIn,
@@ -229,8 +231,8 @@ class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHa
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/sales_images/settings.svg',
-                    width: 24,
-                    height: 24,
+                    width: getProportionateScreenWidth(26),
+                    height: getProportionateScreenHeight(26),
                     colorFilter: ColorFilter.mode(
                       selectedIndex == 4 ? const Color(0xffD2303F) : Colors.grey,
                       BlendMode.srcIn,

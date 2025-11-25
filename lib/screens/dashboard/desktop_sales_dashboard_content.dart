@@ -60,11 +60,11 @@ class _DashboardContentState extends State<DashboardContent> {
                         }
                       },
                       child: Padding(
-                        padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
+                        padding: EdgeInsets.only(left: getProportionateScreenWidth(5)),
                         child: SvgPicture.asset(
                           'assets/sales_images/uthpos.svg',
-                          width: 24,
-                          height: 24,
+                          width: getProportionateScreenWidth(30),
+                          height: getProportionateScreenHeight(30),
                         ),
                       ),
                     ),
@@ -73,7 +73,7 @@ class _DashboardContentState extends State<DashboardContent> {
                   if (!isMobile && !isTablet) ...[
                     SvgPicture.asset(
                       'assets/sales_images/dashboard.svg',
-                      height: 24,
+                      height: getProportionateScreenHeight(24),
                       color: const Color(0xff5A5A5A),
                     ),
 
@@ -82,7 +82,7 @@ class _DashboardContentState extends State<DashboardContent> {
                       child: Text(
                         selectedItem,
                         style: GoogleFonts.openSans(
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.w500,
                           color: const Color(0xff5A5A5A),
                         ),
@@ -94,7 +94,13 @@ class _DashboardContentState extends State<DashboardContent> {
                   Spacer(),
 
                   // User Avatar (always visible)
-                  Icon(Icons.person, color: Colors.pink, size: isMobile ? 20 : 24),
+                  Icon(
+                    Icons.person,
+                    color: Colors.pink,
+                    size: isMobile
+                        ? getProportionateScreenHeight(30)
+                        : getProportionateScreenHeight(34),
+                  ),
                 ],
               ),
             ),
@@ -116,16 +122,16 @@ class _DashboardContentState extends State<DashboardContent> {
 
                 if (isMobile || isTablet)
                   Padding(
-                    padding: EdgeInsets.only(left: getProportionateScreenWidth(12)),
+                    padding: EdgeInsets.only(left: getProportionateScreenWidth(7)),
                     child: Row(
                       children: [
                         SvgPicture.asset(
                           'assets/sales_images/dashboard.svg',
-                          width: 20,
-                          height: 20,
+                          width: getProportionateScreenWidth(26),
+                          height: getProportionateScreenHeight(26),
                           color: const Color(0xff5A5A5A),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: getProportionateScreenWidth(8)),
                         Text(
                           selectedItem,
                           style: const TextStyle(
@@ -145,12 +151,16 @@ class _DashboardContentState extends State<DashboardContent> {
 
                 OverallStatisticsSection(controller: controller, isMobile: isMobile, width: width),
 
-                SizedBox(height: isMobile ? 20 : 40),
+                SizedBox(
+                  height: isMobile
+                      ? getProportionateScreenHeight(20)
+                      : getProportionateScreenHeight(40),
+                ),
 
                 ChartAndInventorySection(controller: controller),
-                const SizedBox(height: 40),
+                SizedBox(height: getProportionateScreenHeight(40)),
                 TopProductsSection(controller: controller),
-                const SizedBox(height: 20),
+                SizedBox(height: getProportionateScreenHeight(24)),
               ],
             ),
           ),

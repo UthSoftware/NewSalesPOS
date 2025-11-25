@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/constants/my_colour.dart';
+import 'package:soft_sales/screens/sales/order_summary_panel_widgets/product_details_view.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
 // ignore: must_be_immutable
@@ -561,6 +562,26 @@ class _OrderSummaryBodyState extends State<OrderSummaryBody> {
         );
       },
     );
+  }
+
+  // Smart navigation based on screen size
+  void _openProductEdit(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < 600;
+
+    if (isMobile) {
+      // Mobile: Navigate to new screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ResponsiveProductEditScreen()),
+      );
+    } else {
+      // Tablet/Desktop: Show dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => ResponsiveProductEditScreen(),
+      );
+    }
   }
 }
 

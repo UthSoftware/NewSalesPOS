@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'SALES POS',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      getPages: [GetPage(name: '/', page: () => const DashboardScreenSalesUiHandler())],
+      getPages: [GetPage(name: '/', page: () => DashboardScreenSalesUiHandler())],
       // home:
       //     DashboardScreenSalesUiHandler(), //DineInTablesScreen(), // SalesScreen(), // SalesLoginScreen(),//DashboardScreenSalesUiHandler
     );
