@@ -11,4 +11,5 @@ mixin MyColors {
 
   /// *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*- ///
   static const Color orderSummaryHeaderBackground = Color(0xFFEEEEEE);
+  static const Color orderSummaryKotBackground = Color(0xFFF0F6FF);
 }
