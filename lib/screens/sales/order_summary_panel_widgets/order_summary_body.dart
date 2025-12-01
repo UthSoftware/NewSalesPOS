@@ -52,6 +52,8 @@ class _OrderSummaryBodyState extends State<OrderSummaryBody> {
     OrderSummaryItem(itemName: "Watermelon Juice", quantity: 1, notes: "No sugar", price: 50.0),
   ];
 
+  bool isKotChecked = true;
+
   @override
   void initState() {
     orderSummary = OrderSummary(
@@ -140,11 +142,11 @@ class _OrderSummaryBodyState extends State<OrderSummaryBody> {
                         width: getProportionateScreenWidth(5.3),
                         height: getProportionateScreenWidth(5.3),
                         decoration: BoxDecoration(
-                          color: true ? Color(0xFFD64545) : Colors.transparent,
+                          color: isKotChecked ? Color(0xFFD64545) : Colors.transparent,
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(color: Color(0xFFD64545), width: 2),
                         ),
-                        child: true
+                        child: isKotChecked
                             ? Icon(
                                 Icons.check,
                                 color: Colors.white,
