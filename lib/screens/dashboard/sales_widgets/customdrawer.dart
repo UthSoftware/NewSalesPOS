@@ -90,203 +90,206 @@ class CustomDrawer extends StatelessWidget {
         ? getProportionateScreenHeight(30)
         : getProportionateScreenHeight(45);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 0, offset: const Offset(1, 0)),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Header Logo
-          Container(
-            height: isMobile ? getProportionateScreenHeight(50) : getProportionateScreenHeight(70),
-            decoration: BoxDecoration(
-              color: isDrawerExpanded ? Color(0xffEEEEEE) : Colors.white,
-              border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
-            ),
-            child: InkWell(
-              onTap: () {
-                if (isMobileDrawer) {
-                  handleItemTap('Dashboard');
-                } else {
-                  onDrawerToggle();
-                }
-              },
-              child: Center(
-                child: ClipRect(
-                  child: SizedBox(
-                    width: logoWidth,
-                    height: logoHeight,
-                    child: SvgPicture.asset('assets/sales_images/uthpos.svg', fit: BoxFit.contain),
+    return Material(
+      elevation: 4,
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white),
+        child: Column(
+          children: [
+            // Header Logo
+            Container(
+              height: isMobile
+                  ? getProportionateScreenHeight(50)
+                  : getProportionateScreenHeight(70),
+              decoration: BoxDecoration(
+                color: isDrawerExpanded ? Color(0xffEEEEEE) : Colors.white,
+                // border: Border(bottom: BorderSide(color: Colors.grey[200]!)),
+              ),
+              child: InkWell(
+                onTap: () {
+                  if (isMobileDrawer) {
+                    handleItemTap('Dashboard');
+                  } else {
+                    onDrawerToggle();
+                  }
+                },
+                child: Center(
+                  child: ClipRect(
+                    child: SizedBox(
+                      width: logoWidth,
+                      height: logoHeight,
+                      child: SvgPicture.asset(
+                        'assets/sales_images/uthpos.svg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
 
-          // Menu Items
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(
-                vertical: isMobile
-                    ? getProportionateScreenHeight(8)
-                    : getProportionateScreenHeight(8),
-              ),
-              children: [
-                DrawerMenuItem(
-                  iconPath: 'assets/sales_images/dashboard.svg',
-                  title: 'Dashboard',
-                  isSelected: selectedItem == 'Dashboard',
-                  isExpanded: isDrawerExpanded,
-                  fontSize: menuFontSize,
-                  iconWidth: iconWidth,
-                  iconHeight: iconHeight,
-                  isMobile: isMobile,
-                  isMobileDrawer: isMobileDrawer,
-                  onTap: () => handleItemTap('Dashboard'),
-                ),
-                DrawerMenuItem(
-                  iconPath: 'assets/sales_images/sales.svg',
-                  title: 'Sales',
-                  isSelected: selectedItem == 'Sales',
-                  isExpanded: isDrawerExpanded,
-                  fontSize: menuFontSize,
-                  iconWidth: iconWidth,
-                  iconHeight: iconHeight,
-                  isMobile: isMobile,
-                  isMobileDrawer: isMobileDrawer,
-                  onTap: () => handleItemTap('Sales'),
-                ),
-                DrawerMenuItem(
-                  iconPath: 'assets/sales_images/orderlist.svg',
-                  title: 'Order List',
-                  isSelected: selectedItem == 'Order List',
-                  isExpanded: isDrawerExpanded,
-                  fontSize: menuFontSize,
-                  iconWidth: iconWidth,
-                  iconHeight: iconHeight,
-                  isMobile: isMobile,
-                  isMobileDrawer: isMobileDrawer,
-                  onTap: () => handleItemTap('Order List'),
-                ),
-                DrawerMenuItemWithSubmenu(
-                  iconPath: 'assets/sales_images/reports.svg',
-                  title: 'Reports',
-                  isSelected: selectedItem.contains('Report'),
-                  isExpanded: isDrawerExpanded,
-                  isSubmenuExpanded: isReportsExpanded,
-                  fontSize: menuFontSize,
-                  submenuFontSize: submenuFontSize,
-                  iconWidth: iconWidth,
-                  iconHeight: iconHeight,
-                  isMobile: isMobile,
-                  isMobileDrawer: isMobileDrawer,
-                  onTap: () {
-                    if (isMobileDrawer || isDrawerExpanded) {
-                      onReportsToggle();
-                    } else {
-                      onDrawerToggle();
-                    }
-                  },
-                  submenuItems: isDrawerExpanded
-                      ? [
-                          SubMenuItem(
-                            title: 'Sales Report',
-                            isSelected: selectedItem == 'Sales Report',
-                            fontSize: submenuFontSize,
-                            isMobile: isMobile,
-                            onTap: () => handleItemTap('Sales Report'),
-                          ),
-                          SubMenuItem(
-                            title: 'Inventory Report',
-                            isSelected: selectedItem == 'Inventory Report',
-                            fontSize: submenuFontSize,
-                            isMobile: isMobile,
-                            onTap: () => handleItemTap('Inventory Report'),
-                          ),
-                          SubMenuItem(
-                            title: 'Customer Report',
-                            isSelected: selectedItem == 'Customer Report',
-                            fontSize: submenuFontSize,
-                            isMobile: isMobile,
-                            onTap: () => handleItemTap('Customer Report'),
-                          ),
-                        ]
-                      : [],
-                ),
-                DrawerMenuItem(
-                  iconPath: 'assets/sales_images/settings.svg',
-                  title: 'Settings',
-                  isSelected: selectedItem == 'Settings',
-                  isExpanded: isDrawerExpanded,
-                  fontSize: menuFontSize,
-                  iconWidth: iconWidth,
-                  iconHeight: iconHeight,
-                  isMobile: isMobile,
-                  isMobileDrawer: isMobileDrawer,
-                  onTap: () => handleItemTap('Settings'),
-                ),
-                SizedBox(
-                  height: isMobile
+            // Menu Items
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.symmetric(
+                  vertical: isMobile
                       ? getProportionateScreenHeight(8)
                       : getProportionateScreenHeight(8),
                 ),
-                DrawerMenuItem(
-                  iconPath: 'assets/sales_images/logout.svg',
-                  title: 'Logout',
-                  isSelected: false,
-                  isExpanded: isDrawerExpanded,
-                  isLogout: true,
-                  fontSize: menuFontSize,
-                  iconWidth: iconWidth,
-                  iconHeight: iconHeight,
-                  isMobile: isMobile,
-                  isMobileDrawer: isMobileDrawer,
-                  onTap: () {
-                    // Add logout logic here
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          // Collapse/Expand button - Hide in mobile drawer
-          if (!isMobileDrawer)
-            Container(
-              decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: Colors.grey[200]!)),
+                children: [
+                  DrawerMenuItem(
+                    iconPath: 'assets/sales_images/dashboard.svg',
+                    title: 'Dashboard',
+                    isSelected: selectedItem == 'Dashboard',
+                    isExpanded: isDrawerExpanded,
+                    fontSize: menuFontSize,
+                    iconWidth: iconWidth,
+                    iconHeight: iconHeight,
+                    isMobile: isMobile,
+                    isMobileDrawer: isMobileDrawer,
+                    onTap: () => handleItemTap('Dashboard'),
+                  ),
+                  DrawerMenuItem(
+                    iconPath: 'assets/sales_images/sales.svg',
+                    title: 'Sales',
+                    isSelected: selectedItem == 'Sales',
+                    isExpanded: isDrawerExpanded,
+                    fontSize: menuFontSize,
+                    iconWidth: iconWidth,
+                    iconHeight: iconHeight,
+                    isMobile: isMobile,
+                    isMobileDrawer: isMobileDrawer,
+                    onTap: () => handleItemTap('Sales'),
+                  ),
+                  DrawerMenuItem(
+                    iconPath: 'assets/sales_images/orderlist.svg',
+                    title: 'Order List',
+                    isSelected: selectedItem == 'Order List',
+                    isExpanded: isDrawerExpanded,
+                    fontSize: menuFontSize,
+                    iconWidth: iconWidth,
+                    iconHeight: iconHeight,
+                    isMobile: isMobile,
+                    isMobileDrawer: isMobileDrawer,
+                    onTap: () => handleItemTap('Order List'),
+                  ),
+                  DrawerMenuItemWithSubmenu(
+                    iconPath: 'assets/sales_images/reports.svg',
+                    title: 'Reports',
+                    isSelected: selectedItem.contains('Report'),
+                    isExpanded: isDrawerExpanded,
+                    isSubmenuExpanded: isReportsExpanded,
+                    fontSize: menuFontSize,
+                    submenuFontSize: submenuFontSize,
+                    iconWidth: iconWidth,
+                    iconHeight: iconHeight,
+                    isMobile: isMobile,
+                    isMobileDrawer: isMobileDrawer,
+                    onTap: () {
+                      if (isMobileDrawer || isDrawerExpanded) {
+                        onReportsToggle();
+                      } else {
+                        onDrawerToggle();
+                      }
+                    },
+                    submenuItems: isDrawerExpanded
+                        ? [
+                            SubMenuItem(
+                              title: 'Sales Report',
+                              isSelected: selectedItem == 'Sales Report',
+                              fontSize: submenuFontSize,
+                              isMobile: isMobile,
+                              onTap: () => handleItemTap('Sales Report'),
+                            ),
+                            SubMenuItem(
+                              title: 'Inventory Report',
+                              isSelected: selectedItem == 'Inventory Report',
+                              fontSize: submenuFontSize,
+                              isMobile: isMobile,
+                              onTap: () => handleItemTap('Inventory Report'),
+                            ),
+                            SubMenuItem(
+                              title: 'Customer Report',
+                              isSelected: selectedItem == 'Customer Report',
+                              fontSize: submenuFontSize,
+                              isMobile: isMobile,
+                              onTap: () => handleItemTap('Customer Report'),
+                            ),
+                          ]
+                        : [],
+                  ),
+                  DrawerMenuItem(
+                    iconPath: 'assets/sales_images/settings.svg',
+                    title: 'Settings',
+                    isSelected: selectedItem == 'Settings',
+                    isExpanded: isDrawerExpanded,
+                    fontSize: menuFontSize,
+                    iconWidth: iconWidth,
+                    iconHeight: iconHeight,
+                    isMobile: isMobile,
+                    isMobileDrawer: isMobileDrawer,
+                    onTap: () => handleItemTap('Settings'),
+                  ),
+                  SizedBox(
+                    height: isMobile
+                        ? getProportionateScreenHeight(8)
+                        : getProportionateScreenHeight(8),
+                  ),
+                  DrawerMenuItem(
+                    iconPath: 'assets/sales_images/logout.svg',
+                    title: 'Logout',
+                    isSelected: false,
+                    isExpanded: isDrawerExpanded,
+                    isLogout: true,
+                    fontSize: menuFontSize,
+                    iconWidth: iconWidth,
+                    iconHeight: iconHeight,
+                    isMobile: isMobile,
+                    isMobileDrawer: isMobileDrawer,
+                    onTap: () {
+                      // Add logout logic here
+                    },
+                  ),
+                ],
               ),
-              child: InkWell(
-                onTap: onDrawerToggle,
-                child: SizedBox(
-                  height: isMobile
-                      ? getProportionateScreenHeight(40)
-                      : getProportionateScreenHeight(48),
-                  child: Icon(
-                    isDrawerExpanded ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right,
-                    color: Colors.grey[600],
-                    size: isMobile
-                        ? getProportionateScreenHeight(24)
-                        : getProportionateScreenHeight(20),
+            ),
+
+            // Collapse/Expand button - Hide in mobile drawer
+            if (!isMobileDrawer)
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: Colors.grey[200]!)),
+                ),
+                child: InkWell(
+                  onTap: onDrawerToggle,
+                  child: SizedBox(
+                    height: isMobile
+                        ? getProportionateScreenHeight(40)
+                        : getProportionateScreenHeight(48),
+                    child: Icon(
+                      isDrawerExpanded ? Icons.keyboard_arrow_left : Icons.keyboard_arrow_right,
+                      color: Colors.grey[600],
+                      size: isMobile
+                          ? getProportionateScreenHeight(24)
+                          : getProportionateScreenHeight(20),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-          // Version Info
-          if (isDrawerExpanded)
-            Padding(
-              padding: EdgeInsets.all(
-                isMobile ? getProportionateScreenWidth(3) : getProportionateScreenWidth(3),
+            // Version Info
+            if (isDrawerExpanded)
+              Padding(
+                padding: EdgeInsets.all(
+                  isMobile ? getProportionateScreenWidth(3) : getProportionateScreenWidth(3),
+                ),
+                child: Text(
+                  'Version 1.00.23.000',
+                  style: TextStyle(fontSize: versionFontSize, color: Colors.grey[600]),
+                ),
               ),
-              child: Text(
-                'Version 1.00.23.000',
-                style: TextStyle(fontSize: versionFontSize, color: Colors.grey[600]),
-              ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
