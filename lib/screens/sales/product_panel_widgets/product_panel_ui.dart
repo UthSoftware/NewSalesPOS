@@ -34,6 +34,7 @@ class _ProductPanelUiState extends State<ProductPanelUi> {
             ],
           ),
         ),
+
         Expanded(child: ResponsiveFoodGrid()),
       ],
     );
