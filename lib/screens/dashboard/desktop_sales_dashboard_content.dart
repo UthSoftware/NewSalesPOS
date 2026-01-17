@@ -3,9 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_sales/controller/dashboard/dashboard_controller.dart';
-import 'package:soft_sales/screens/dashboard/chart%20_and_inventory_section.dart';
-import 'package:soft_sales/screens/dashboard/overall_statistics_section.dart';
-import 'package:soft_sales/screens/dashboard/top_product_section.dart';
+import 'package:soft_sales/screens/dashboard/overall_sales_chart/chart%20_and_inventory_section.dart';
+import 'package:soft_sales/screens/dashboard/overall_statistics_section/overall_statistics_section.dart';
+import 'package:soft_sales/screens/dashboard/selling_and_nonmoving_products/top_product_section.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
 class DashboardContent extends StatefulWidget {

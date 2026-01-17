@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:soft_sales/controller/dashboard/dashboard_controller.dart';
-import 'package:soft_sales/screens/dashboard/customer_report.dart';
 import 'package:soft_sales/screens/dashboard/desktop_sales_dashboard_content.dart';
-import 'package:soft_sales/screens/dashboard/inventory_report.dart';
-import 'package:soft_sales/screens/dashboard/order_list.dart';
-import 'package:soft_sales/screens/dashboard/sales_report.dart';
 import 'package:soft_sales/screens/dashboard/sales_widgets/customdrawer.dart';
-import 'package:soft_sales/screens/dashboard/setting.dart';
+import 'package:soft_sales/screens/order_list/order_list.dart';
+import 'package:soft_sales/screens/reports/customer_report.dart';
+import 'package:soft_sales/screens/reports/inventory_report.dart';
+import 'package:soft_sales/screens/reports/sales_report.dart';
 import 'package:soft_sales/screens/sales/sales_screen.dart';
+import 'package:soft_sales/screens/settings/setting.dart';
 import 'package:soft_sales/utils/sizeConfig.dart';
 
-class DashboardScreenSalesUiHandler extends StatefulWidget {
-  const DashboardScreenSalesUiHandler({super.key});
+class LayoutHandler extends StatefulWidget {
+  const LayoutHandler({super.key});
 
   @override
-  _DashboardScreenSalesUiHandlerState createState() => _DashboardScreenSalesUiHandlerState();
+  _LayoutHandlerState createState() => _LayoutHandlerState();
 }
 
-class _DashboardScreenSalesUiHandlerState extends State<DashboardScreenSalesUiHandler> {
+class _LayoutHandlerState extends State<LayoutHandler> {
   final StatsController controller = Get.put(StatsController());
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
